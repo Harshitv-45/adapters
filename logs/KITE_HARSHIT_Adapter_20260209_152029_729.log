@@ -1,0 +1,20 @@
+[2026-02-09 15:20:29,731] INFO      [HARSHIT] Starting adapter
+[2026-02-09 15:20:29,731] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
+[2026-02-09 15:20:29,732] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
+[2026-02-09 15:20:36,335] INFO      [HARSHIT] LOGIN_SUCCESS | Access token received: GdE4NvUYCikawIzyZuaLVEe6Mrz04XcZ
+[2026-02-09 15:20:36,336] INFO      [HARSHIT] [INSTRUMENTS] Downloading instruments CSV (public endpoint)
+[2026-02-09 15:20:36,583] INFO      [HARSHIT] [INSTRUMENTS] Download successful
+[2026-02-09 15:20:36,717] INFO      [HARSHIT] [INSTRUMENTS] Loaded 169005 rows
+[2026-02-09 15:20:36,718] INFO      [HARSHIT] INSTRUMENTS_READY | Instruments loaded
+[2026-02-09 15:20:36,718] INFO      [HARSHIT] Adapter READY | Zerodha adapter initialized
+[2026-02-09 15:20:36,718] INFO      [HARSHIT] WS_START | Starting Zerodha WebSocket
+[2026-02-09 15:20:36,820] INFO      [HARSHIT] Adapter connected successfully
+[2026-02-09 15:20:36,907] INFO      [HARSHIT] [WS] Connected to Zerodha
+[2026-02-09 15:20:54,405] INFO      [HARSHIT] COMMAND | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSEFO', 'ExchangeInstrumentID': 42622, 'SymbolName': 'NIFTY', 'ExchangeInstrumentName': 'NIFTY 10FEB2026 CE 27500', 'ProductType': 'MIS', 'OrderType': 'LIMIT', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 65, 'LimitPrice': 0.1, 'StopPrice': 0.0, 'BlitzAppOrderID': 3156800273, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-09 15:20:54,406] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156800273
+[2026-02-09 15:20:54,422] INFO      [HARSHIT] ZERODHA_REST_OUT | payload={'tradingsymbol': 'NIFTY2621027500CE', 'exchange': 'NFO', 'transaction_type': 'BUY', 'order_type': 'LIMIT', 'quantity': 65, 'product': 'MIS', 'price': 0.1, 'trigger_price': 0.0, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-09 15:20:54,599] INFO      [HARSHIT] ZERODHA_WS_RESPONSE | payload={'account_id': 'RGZ539', 'unfilled_quantity': 0, 'checksum': '', 'placed_by': 'RGZ539', 'order_id': '260209151513315', 'exchange_order_id': '1400000216681565', 'parent_order_id': None, 'status': 'OPEN', 'status_message': None, 'status_message_raw': None, 'order_timestamp': '2026-02-09 15:20:54', 'exchange_update_timestamp': '2026-02-09 15:20:54', 'exchange_timestamp': '2026-02-09 15:20:54', 'variety': 'regular', 'exchange': 'NFO', 'tradingsymbol': 'NIFTY2621027500CE', 'instrument_token': 10911234, 'order_type': 'LIMIT', 'transaction_type': 'BUY', 'validity': 'DAY', 'product': 'MIS', 'quantity': 65, 'disclosed_quantity': 0, 'price': 0.1, 'trigger_price': 0, 'average_price': 0, 'filled_quantity': 0, 'pending_quantity': 65, 'cancelled_quantity': 0, 'market_protection': 0, 'meta': {}, 'tag': None, 'guid': '205871XpnZtUU9uDKiQ'}
+[2026-02-09 15:20:54,602] INFO      [HARSHIT] ZERODHA_REST_IN | payload={'status': 'success', 'data': {'order_id': '260209151513315'}}
+[2026-02-09 15:20:54,602] WARNING   [HARSHIT] ZERODHA_WS_PENDING | order_id=260209151513315 payload={'account_id': 'RGZ539', 'unfilled_quantity': 0, 'checksum': '', 'placed_by': 'RGZ539', 'order_id': '260209151513315', 'exchange_order_id': '1400000216681565', 'parent_order_id': None, 'status': 'OPEN', 'status_message': None, 'status_message_raw': None, 'order_timestamp': '2026-02-09 15:20:54', 'exchange_update_timestamp': '2026-02-09 15:20:54', 'exchange_timestamp': '2026-02-09 15:20:54', 'variety': 'regular', 'exchange': 'NFO', 'tradingsymbol': 'NIFTY2621027500CE', 'instrument_token': 10911234, 'order_type': 'LIMIT', 'transaction_type': 'BUY', 'validity': 'DAY', 'product': 'MIS', 'quantity': 65, 'disclosed_quantity': 0, 'price': 0.1, 'trigger_price': 0, 'average_price': 0, 'filled_quantity': 0, 'pending_quantity': 65, 'cancelled_quantity': 0, 'market_protection': 0, 'meta': {}, 'tag': None, 'guid': '205871XpnZtUU9uDKiQ'}
+[2026-02-09 15:20:54,602] INFO      [HARSHIT] ORDER_PLACED | blitz=3156800273 zerodha=260209151513315
+[2026-02-09 15:21:18,775] INFO      [HARSHIT] Adapter STOP | Zerodha adapter stopped

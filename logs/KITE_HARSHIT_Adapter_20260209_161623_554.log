@@ -1,0 +1,38 @@
+[2026-02-09 16:16:23,556] INFO      [HARSHIT] Starting adapter
+[2026-02-09 16:16:23,556] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
+[2026-02-09 16:16:23,557] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
+[2026-02-09 16:16:28,000] INFO      [HARSHIT] LOGIN_SUCCESS | Access token received: GdE4NvUYCikawIzyZuaLVEe6Mrz04XcZ
+[2026-02-09 16:16:28,001] INFO      [HARSHIT] [INSTRUMENTS] CSV already exists
+[2026-02-09 16:16:28,130] INFO      [HARSHIT] [INSTRUMENTS] Loaded 169005 rows
+[2026-02-09 16:16:28,130] INFO      [HARSHIT] INSTRUMENTS_READY | Instruments loaded
+[2026-02-09 16:16:28,130] INFO      [HARSHIT] Adapter READY | Zerodha adapter initialized
+[2026-02-09 16:16:28,130] INFO      [HARSHIT] WS_START | Starting Zerodha WebSocket
+[2026-02-09 16:16:28,271] INFO      [HARSHIT] Adapter connected successfully
+[2026-02-09 16:16:29,322] INFO      [HARSHIT] WS_CONNECTED | Connected to Zerodha
+[2026-02-09 16:38:17,142] INFO      [HARSHIT] Adapter STOP | Stopping Zerodha adapter
+[2026-02-09 16:38:17,145] INFO      [HARSHIT] WS_STOP | Closing Zerodha WebSocket
+[2026-02-09 16:38:17,152] INFO      [HARSHIT] WS_STOPPED | WebSocket closed and cleaned up
+[2026-02-09 16:38:17,152] INFO      [HARSHIT] Adapter STOPPED | Zerodha adapter stopped successfully
+[2026-02-09 16:38:17,278] WARNING   [HARSHIT] WS_CLOSED | code=None reason=None
+[2026-02-09 16:38:17,279] INFO      [HARSHIT] WS_DISCONNECT_INTENTIONAL | Not reconnecting
+[2026-02-09 16:42:33,164] INFO      [HARSHIT] Starting adapter
+[2026-02-09 16:42:33,165] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
+[2026-02-09 16:42:33,166] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
+[2026-02-09 16:42:41,314] INFO      [HARSHIT] LOGIN_SUCCESS | Access token received: GdE4NvUYCikawIzyZuaLVEe6Mrz04XcZ
+[2026-02-09 16:42:41,316] INFO      [HARSHIT] [INSTRUMENTS] CSV already exists
+[2026-02-09 16:42:41,316] INFO      [HARSHIT] INSTRUMENTS_READY | Instruments loaded
+[2026-02-09 16:42:41,316] INFO      [HARSHIT] Adapter READY | Zerodha adapter initialized
+[2026-02-09 16:42:41,316] INFO      [HARSHIT] WS_START | Starting Zerodha WebSocket
+[2026-02-09 16:42:41,442] INFO      [HARSHIT] Adapter connected successfully
+[2026-02-09 16:42:48,822] INFO      [HARSHIT] COMMAND | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'SymbolName': 'IDEA', 'ExchangeInstrumentName': 'IDEA', 'ProductType': 'MIS', 'OrderType': 'LIMIT', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 1, 'LimitPrice': 6.96, 'StopPrice': 0.0, 'BlitzAppOrderID': 3156800277, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-09 16:42:48,823] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156800277
+[2026-02-09 16:42:48,825] INFO      [HARSHIT] ZERODHA_REST_OUT | payload={'tradingsymbol': 'IDEA', 'exchange': 'NSE', 'transaction_type': 'BUY', 'order_type': 'LIMIT', 'quantity': 1, 'product': 'MIS', 'price': 6.96, 'trigger_price': 0.0, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-09 16:42:48,938] INFO      [HARSHIT] ZERODHA_REST_IN | payload={'status': 'error', 'message': 'Your order price is lower than the current [lower circuit limit](https://support.zerodha.com/category/trading-and-markets/trading-faqs/articles/what-does-circuit-limits-i-e-price-bands-mean) of 10.01. You can place an order within the range or [use GTT](https://support.zerodha.com/category/trading-and-markets/gtt/articles/what-is-the-good-till-triggered-gtt-feature) for long-standing orders.', 'data': None, 'error_type': 'InputException'}
+[2026-02-09 16:44:45,065] INFO      [HARSHIT] COMMAND | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'SymbolName': 'IDEA', 'ExchangeInstrumentName': 'IDEA', 'ProductType': 'MIS', 'OrderType': 'LIMIT', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 1, 'LimitPrice': 6.96, 'StopPrice': 0.0, 'BlitzAppOrderID': 3156800278, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-09 16:44:45,067] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156800278
+[2026-02-09 16:44:45,068] INFO      [HARSHIT] ZERODHA_REST_OUT | payload={'tradingsymbol': 'IDEA', 'exchange': 'NSE', 'transaction_type': 'BUY', 'order_type': 'LIMIT', 'quantity': 1, 'product': 'MIS', 'price': 6.96, 'trigger_price': 0.0, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-09 16:44:45,203] INFO      [HARSHIT] ZERODHA_REST_IN | payload={'status': 'error', 'message': 'Your order price is lower than the current [lower circuit limit](https://support.zerodha.com/category/trading-and-markets/trading-faqs/articles/what-does-circuit-limits-i-e-price-bands-mean) of 10.01. You can place an order within the range or [use GTT](https://support.zerodha.com/category/trading-and-markets/gtt/articles/what-is-the-good-till-triggered-gtt-feature) for long-standing orders.', 'data': None, 'error_type': 'InputException'}
+[2026-02-09 16:46:09,719] INFO      [HARSHIT] Adapter STOP | Stopping Zerodha adapter
+[2026-02-09 16:46:09,720] INFO      [HARSHIT] WS_STOP | Closing Zerodha WebSocket
+[2026-02-09 16:46:09,720] INFO      [HARSHIT] WS_STOPPED | WebSocket closed and cleaned up
+[2026-02-09 16:46:09,720] INFO      [HARSHIT] Adapter STOPPED | Zerodha adapter stopped successfully
