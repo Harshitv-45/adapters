@@ -288,11 +288,13 @@ def shutdown():
 
     logging.info("Shutting down TPOMS")
 
-    for connector in connectors.values():
+    # Use handle_disconnect for each active connector
+    for key in list(connectors.keys()):
         try:
-            connector.stop()
-        except Exception:
-            pass
+            broker, entity = key.split(":", 1)
+            handle_disconnect(broker, entity, connectors.get(key))
+        except Exception as e:
+            logging.error(f"Failed to disconnect {key}: {e}")
 
 
 # =============================================================================
@@ -306,6 +308,7 @@ def main():
     logging.info(f"Listening on {config.CH_BLITZ_REQUESTS}")
 
     signal.signal(signal.SIGTERM, lambda *_: shutdown())
+    signal.signal(signal.SIGINT, lambda *_: shutdown())
     atexit.register(shutdown)
 
     for message in pubsub.listen():
