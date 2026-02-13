@@ -52,7 +52,7 @@ class ZerodhaWebSocket:
     def stop(self):
         self.should_reconnect = False  # Prevent auto-reconnect on manual stop
         if self.kws:
-            self.logger.info("[WS] Stopping WebSocket connection")
+            self.logger.info("[WEBSOCKET] Stopping WebSocket connection")
             try:
                 self.kws.close()
                 self.is_connected = False
@@ -60,17 +60,17 @@ class ZerodhaWebSocket:
                 # Clear state caches to prevent stale data on reconnect
                 self.order_state_cache.clear()
                 self.pending_ws_updates.clear()
-                self.logger.info("[WS] State cleared")
+                self.logger.info("[WEBSOCKET] State cleared")
                 
             except Exception as e:
-                self.logger.error(f"[WS] Error during stop: {e}")
+                self.logger.error(f"[WEBSOCKET] Error during stop: {e}")
             finally:
                 self.kws = None
 
     # ---------------------------------------------------------
     def _on_connect(self, ws, response):
         self.is_connected = True
-        self.logger.info("[WS] Connected to Zerodha")
+        self.logger.info("[WEBSOCKET] Connected to Zerodha")
 
     def _on_close(self, ws, code, reason):
         self.is_connected = False
@@ -79,24 +79,24 @@ class ZerodhaWebSocket:
         if not self.should_reconnect:
             return
 
-        self.logger.warning(f"[WS] Closed: {code} {reason}")
+        self.logger.warning(f"[WEBSOCKET] Closed: {code} {reason}")
         
         # Auto-reconnect if needed
         if self.should_reconnect:
-            self.logger.info("[WS] Reconnecting in 3 seconds...")
+            self.logger.info("[WEBSOCKET] Reconnecting in 3 seconds...")
             import time
             time.sleep(3)
             if self.kws and self.should_reconnect:
                 try:
                     self.kws.connect(threaded=True)
                 except Exception as e:
-                    self.logger.error(f"[WS] Reconnection failed: {e}")
+                    self.logger.error(f"[WEBSOCKET] Reconnection failed: {e}")
 
     def _on_error(self, ws, code, reason):
         # Suppress error logging during manual stop (expected behavior)
         if not self.should_reconnect:
             return
-        self.logger.error(f"[WS] Error: {code} {reason}")
+        self.logger.error(f"[WEBSOCKET] Error: {code} {reason}")
 
     # ---------------------------------------------------------
     def _on_order_update(self, ws, data):
@@ -105,7 +105,7 @@ class ZerodhaWebSocket:
             # RAW ZERODHA WS PAYLOAD
             # =====================================================
             self.logger.info(
-                "ZERODHA_WS_RESPONSE | payload=%s",
+                "[TPOMS-INBOUND][WebSocket] Incoming message: %s",
                 data
             )
 
@@ -177,7 +177,7 @@ class ZerodhaWebSocket:
                 order_log.OrderQuantity = qty
 
                 self.logger.info(
-                    "BLITZ_RESPONSE | order_id=%s payload=%s",
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
                     order_id,
                     order_log.__dict__
                 )
@@ -193,7 +193,7 @@ class ZerodhaWebSocket:
                 }
 
                 self.logger.info(
-                    f"[WS] MODIFY published | order_id={order_id}"
+                    f" MODIFY published | order_id={order_id}"
                 )
                 return
 
@@ -215,7 +215,7 @@ class ZerodhaWebSocket:
                 order_log.LeavesQuantity = 0
 
                 self.logger.info(
-                    "BLITZ_RESPONSE | order_id=%s payload=%s",
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
                     order_id,
                     order_log.__dict__
                 )
@@ -229,7 +229,7 @@ class ZerodhaWebSocket:
                 }
 
                 self.logger.info(
-                    f"[WS] CANCEL published | order_id={order_id}"
+                    f" CANCEL published | order_id={order_id}"
                 )
                 return
 
@@ -246,7 +246,7 @@ class ZerodhaWebSocket:
                 order_log.CancelRejectReason = data.get("status_message") or "Order rejected"
 
                 self.logger.info(
-                    "BLITZ_RESPONSE | order_id=%s payload=%s",
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
                     order_id,
                     order_log.__dict__
                 )
@@ -260,7 +260,7 @@ class ZerodhaWebSocket:
                 }
 
                 self.logger.info(
-                    f"[WS] REJECTED published | order_id={order_id}"
+                    f"REJECTED published | order_id={order_id}"
                 )
                 return
 
@@ -274,7 +274,7 @@ class ZerodhaWebSocket:
                 )
 
                 self.logger.info(
-                    "BLITZ_RESPONSE | order_id=%s payload=%s",
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
                     order_id,
                     order_log.__dict__
                 )
@@ -298,7 +298,7 @@ class ZerodhaWebSocket:
                 )
 
                 self.logger.info(
-                    "BLITZ_RESPONSE | order_id=%s payload=%s",
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
                     order_id,
                     order_log.__dict__
                 )
@@ -314,12 +314,12 @@ class ZerodhaWebSocket:
                 }
 
                 self.logger.info(
-                    f"[WS] NEW order published | order_id={order_id}"
+                    f"NEW order published | order_id={order_id}"
                 )
                 return
 
         except Exception as e:
             self.logger.error(
-                f"[WS] Failed to process order update: {e}",
+                f"Failed to process order update: {e}",
                 exc_info=True
             )

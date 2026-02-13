@@ -46,6 +46,7 @@ redis_client = RedisClient()
 BROKER_CONNECTOR_MAP = {
 
     "KITE": ZerodhaAdapter,
+    #"MOFL": MotilalAdapter,
 }
 
 connectors = {}

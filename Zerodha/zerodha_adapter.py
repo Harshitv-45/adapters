@@ -163,7 +163,7 @@ class ZerodhaAdapter:
         blitz_data = payload.get("Data")
 
         self.logger.info(
-            "COMMAND | action=%s payload=%s",
+            "[BLITZ-INBOUND] | action=%s payload=%s",
             action,
             blitz_data
         )
@@ -205,7 +205,7 @@ class ZerodhaAdapter:
 
             # Zerodha Rest request
             self.logger.info(
-                "ZERODHA_REST_OUT | payload=%s",
+                "[TPOMS-OUTBOUND] | payload=%s",
                 params
             )
 
@@ -213,7 +213,7 @@ class ZerodhaAdapter:
 
             # Zerodha Rest response
             self.logger.info(
-                "ZERODHA_REST_IN | payload=%s",
+                "[TPOMS-INBOUND] | payload=%s",
                 response
             )
 
@@ -223,6 +223,13 @@ class ZerodhaAdapter:
                     blitz_data,
                     self.entity_id
                 )
+                
+                # Log Blitz response before publishing
+                self.logger.info(
+                    "[BLITZ-OUTBOUND] | payload=%s",
+                    order_log.to_dict() if hasattr(order_log, 'to_dict') else order_log
+                )
+                
                 self._publish_order_update(order_log)
                 return
 
@@ -242,7 +249,7 @@ class ZerodhaAdapter:
                     pending = self.ws.pending_ws_updates.pop(str(order_id), None)
                     if pending:
                         self.logger.info(
-                            "WS_REPLAY | order_id=%s",
+                            "[WS_REPLAY] | order_id=%s",
                             order_id
                         )
                         # Call _on_order_update outside the lock to avoid deadlock
@@ -322,7 +329,7 @@ class ZerodhaAdapter:
 
             # Zerodha Modify request
             self.logger.info(
-                "ZERODHA_MODIFY_REQUEST | order_id=%s payload=%s",
+                "[TPOMS-OUTBOUND] | order_id=%s payload=%s",
                 zerodha_order_id,
                 modify_params
             )
@@ -334,7 +341,7 @@ class ZerodhaAdapter:
 
             # Zerodha Modify response
             self.logger.info(
-                "ZERODHA_MODIFY_RESPONSE | order_id=%s payload=%s",
+                "[TPOMS-INBOUND] | order_id=%s payload=%s",
                 zerodha_order_id,
                 response
             )
@@ -352,7 +359,7 @@ class ZerodhaAdapter:
             self.order_request_data[str(zerodha_order_id)] = original_request
 
             self.logger.info(
-                "ORDER_MODIFIED | blitz=%s zerodha=%s",
+                "[ORDER_MODIFIED] | blitz=%s zerodha=%s",
                 original_request.get("BlitzAppOrderID"),
                 zerodha_order_id
             )
@@ -386,7 +393,7 @@ class ZerodhaAdapter:
 
             # Zerodha Cancel request
             self.logger.info(
-                "ZERODHA_CANCEL_REQUEST | order_id=%s",
+                "[TPOMS-OUTBOUND] | order_id=%s",
                 zerodha_order_id
             )
 
@@ -394,7 +401,7 @@ class ZerodhaAdapter:
 
             # Zerodha Cancel response
             self.logger.info(
-                "ZERODHA_CANCEL_RESPONSE | order_id=%s payload=%s",
+                "[TPOMS-INBOUND] | order_id=%s payload=%s",
                 zerodha_order_id,
                 response
             )
@@ -408,8 +415,30 @@ class ZerodhaAdapter:
                 self._publish_order_update(order_log)
                 return
 
+            # SUCCESS: Map cancel success to Blitz format
+            zerodha_cancel_data = {
+                "order_id": zerodha_order_id,
+                "status": "CANCELLED"
+            }
+            
+            order_log = ZerodhaMapper.to_blitz_orderlog(
+                zerodha_data=zerodha_cancel_data,
+                blitz_request=original_request
+            )
+            
+            # Explicitly set OrderStatus to Cancelled
+            order_log.OrderStatus = "Cancelled"
+            
+            # Log Blitz response before publishing
             self.logger.info(
-                "ORDER_CANCELLED | blitz=%s zerodha=%s",
+                "[BLITZ-OUTBOUND] | payload=%s",
+                order_log.to_dict() if hasattr(order_log, 'to_dict') else order_log
+            )
+            
+            self._publish_order_update(order_log)
+
+            self.logger.info(
+                "[ORDER_CANCELLED] | blitz=%s zerodha=%s",
                 blitz_data.get("BlitzAppOrderID"),
                 zerodha_order_id
             )

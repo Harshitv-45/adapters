@@ -1,0 +1,19 @@
+[2026-02-12 15:45:23,355] INFO      [HARSHIT] Starting adapter
+[2026-02-12 15:45:23,355] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
+[2026-02-12 15:45:23,356] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
+[2026-02-12 15:45:28,140] INFO      [HARSHIT] LOGIN_SUCCESS | Access token received: uzPVN331i1Dk8CIdm5QX1cf2ThJn4QGU
+[2026-02-12 15:45:28,141] INFO      [HARSHIT] [INSTRUMENTS] CSV already exists
+[2026-02-12 15:45:28,296] INFO      [HARSHIT] [INSTRUMENTS] Loaded 169364 rows
+[2026-02-12 15:45:28,296] INFO      [HARSHIT] INSTRUMENTS_READY | Instruments loaded
+[2026-02-12 15:45:28,296] INFO      [HARSHIT] Adapter READY | Zerodha adapter initialized
+[2026-02-12 15:45:28,296] INFO      [HARSHIT] WS_START | Starting Zerodha WebSocket
+[2026-02-12 15:45:28,395] INFO      [HARSHIT] Adapter connected successfully
+[2026-02-12 15:45:28,490] INFO      [HARSHIT] [WS] Connected to Zerodha
+[2026-02-12 15:45:38,245] INFO      [HARSHIT] COMMAND | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'SymbolName': 'IDEA', 'ExchangeInstrumentName': 'IDEA', 'ProductType': 'MIS', 'OrderType': 'MARKET', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 1, 'LimitPrice': 0.0, 'StopPrice': 0.0, 'BlitzAppOrderID': 3156655010, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-12 15:45:38,246] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156655010
+[2026-02-12 15:45:38,246] INFO      [HARSHIT] ZERODHA_REST_OUT | payload={'tradingsymbol': 'IDEA', 'exchange': 'NSE', 'transaction_type': 'BUY', 'order_type': 'MARKET', 'quantity': 1, 'product': 'MIS', 'price': 0.0, 'trigger_price': 0.0, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-12 15:45:38,382] INFO      [HARSHIT] ZERODHA_REST_IN | payload={'status': 'error', 'message': 'Intraday orders (MIS) are allowed only till 3.25 PM. Try placing a CNC order.', 'data': None, 'error_type': 'InputException'}
+[2026-02-12 15:49:00,379] INFO      [HARSHIT] COMMAND | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'SymbolName': 'IDEA', 'ExchangeInstrumentName': 'IDEA', 'ProductType': 'MIS', 'OrderType': 'MARKET', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 1, 'LimitPrice': 0.0, 'StopPrice': 0.0, 'BlitzAppOrderID': 3156655011, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-12 15:49:00,380] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156655011
+[2026-02-12 15:49:00,381] INFO      [HARSHIT] ZERODHA_REST_OUT | payload={'tradingsymbol': 'IDEA', 'exchange': 'NSE', 'transaction_type': 'BUY', 'order_type': 'MARKET', 'quantity': 1, 'product': 'MIS', 'price': 0.0, 'trigger_price': 0.0, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-12 15:49:00,506] INFO      [HARSHIT] ZERODHA_REST_IN | payload={'status': 'error', 'message': 'Intraday orders (MIS) are allowed only till 3.25 PM. Try placing a CNC order.', 'data': None, 'error_type': 'InputException'}

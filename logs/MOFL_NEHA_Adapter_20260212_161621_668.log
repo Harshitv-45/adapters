@@ -1,0 +1,303 @@
+[2026-02-12 16:16:21,669] INFO      [NEHA] Starting adapter
+[2026-02-12 16:16:21,670] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:16:21,671] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:16:22,318] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:16:22,319] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:16:22,320] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:16:22,320] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:16:22,321] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:16:22,325] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:16:22,325] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:16:22,416] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:16:22,565] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:16:22,565] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:16:22,566] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:16:22,647] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:16:22,647] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:16:22,647] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:16:22,647] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:16:22,648] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:16:22,766] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:16:22,766] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:16:22,766] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:16:22,766] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:16:52,571] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:16:52,574] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:17:12,172] WARNING   [NEHA] Logout API call failed: MotilalAuthAPI.logout() got an unexpected keyword argument 'access_token'
+[2026-02-12 16:17:12,173] INFO      [NEHA] [WEBSOCKET] Heartbeat stopping entity=NEHA
+[2026-02-12 16:17:12,226] WARNING   [NEHA] [WEBSOCKET] Closed: code=None, reason=None, entity=NEHA
+[2026-02-12 16:17:12,228] ERROR     [NEHA] [WEBSOCKET] Reconnect stopped due to auth failure
+[2026-02-12 16:17:12,228] INFO      [NEHA] Stopped MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:17:13,616] INFO      [NEHA] Starting adapter
+[2026-02-12 16:17:13,616] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:17:13,617] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:17:13,980] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:17:13,980] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:17:13,981] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:17:13,981] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:17:13,981] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:17:13,982] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:17:13,982] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:17:14,054] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:17:14,197] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:17:14,197] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:17:14,198] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:17:14,249] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:17:14,249] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:17:14,249] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:17:14,249] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:17:14,249] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:17:14,325] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:17:14,326] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:17:14,326] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:17:14,326] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:17:44,204] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:17:44,209] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:18:14,214] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:18:14,215] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:18:44,222] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:18:44,233] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:19:14,238] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:19:14,241] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:19:44,244] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:19:44,246] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:20:14,250] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:20:14,253] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:20:44,258] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:20:44,260] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:21:14,263] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:21:14,265] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:21:16,562] WARNING   [NEHA] Logout API call failed: MotilalAuthAPI.logout() got an unexpected keyword argument 'access_token'
+[2026-02-12 16:21:16,563] INFO      [NEHA] [WEBSOCKET] Heartbeat stopping entity=NEHA
+[2026-02-12 16:21:16,615] WARNING   [NEHA] [WEBSOCKET] Closed: code=None, reason=None, entity=NEHA
+[2026-02-12 16:21:16,615] INFO      [NEHA] Stopped MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:21:16,616] ERROR     [NEHA] [WEBSOCKET] Reconnect stopped due to auth failure
+[2026-02-12 16:21:17,544] INFO      [NEHA] Starting adapter
+[2026-02-12 16:21:17,547] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:21:17,549] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:21:17,936] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:21:17,936] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:21:17,938] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:21:17,938] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:21:17,938] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:21:17,938] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:21:17,938] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:21:18,033] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:21:18,230] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:21:18,230] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:21:18,231] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:21:18,287] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:18,287] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:21:18,287] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:21:18,288] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:21:18,288] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:21:18,496] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:18,496] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:21:18,497] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:18,497] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:21:45,197] INFO      [NEHA] [BLITZ-INBOUND] Action=PLACE_ORDER, Full payload: {"Action": "PLACE_ORDER", "TPOmsName": "MOFL", "UserId": "82681be6-577f-431e-ac97-5276a8d13405", "UserName": "NEHA", "Data": {"Account": "", "ExchangeClientID": "NEHA", "ExchangeSegment": "NSECM", "ExchangeInstrumentID": 17376, "SymbolName": "EXCEL", "ExchangeInstrumentName": "EXCEL", "ProductType": "MIS", "OrderType": "LIMIT", "OrderSide": "Buy", "TimeInForce": "GFD", "DisclosedQuantity": 0, "OrderQuantity": 1, "LimitPrice": 1.23, "StopPrice": 0.0, "BlitzAppOrderID": 3156655026, "AlgoID": "0", "AlgoCategory": "0", "IsFictiveOrder": "False"}}
+[2026-02-12 16:21:45,198] INFO      [NEHA] [BLITZ-INBOUND] PLACE_ORDER - Parameters: {"Account": "", "ExchangeClientID": "NEHA", "ExchangeSegment": "NSECM", "ExchangeInstrumentID": 17376, "SymbolName": "EXCEL", "ExchangeInstrumentName": "EXCEL", "ProductType": "MIS", "OrderType": "LIMIT", "OrderSide": "Buy", "TimeInForce": "GFD", "DisclosedQuantity": 0, "OrderQuantity": 1, "LimitPrice": 1.23, "StopPrice": 0.0, "BlitzAppOrderID": 3156655026, "AlgoID": "0", "AlgoCategory": "0", "IsFictiveOrder": "False"}
+[2026-02-12 16:21:45,198] INFO      [NEHA] Blitz data cached: 3156655026
+[2026-02-12 16:21:45,199] INFO      [NEHA] [TPOMS-OUTBOUND][API] PLACE_ORDER - Parameters: {"symboltoken": 17376, "exchange": "NSE", "side": "Buy", "order_type": "LIMIT", "quantity": 1, "product_type": "NORMAL", "price": 1.23, "trigger_price": 0.0, "validity": "DAY", "tag": 3156655026, "amoorder": "N"}
+[2026-02-12 16:21:45,199] INFO      [NEHA] Using ExchangeInstrumentID as symbol token: 17376
+[2026-02-12 16:21:45,199] INFO      [NEHA] [API REQUEST] {"exchange": "NSE", "symboltoken": 17376, "buyorsell": "BUY", "ordertype": "LIMIT", "producttype": "NORMAL", "quantityinlot": 1, "amoorder": "N", "price": 1.23, "triggerprice": 0.0, "orderduration": "DAY", "tag": "3156655026"}
+[2026-02-12 16:21:45,494] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:45,495] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "NORMAL", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "0", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "NORMAL", "error": "", "orderstatus": "SENT", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.23, "triggerprice": 0, "entrydatetime": "01-Jan-1980 00:00:00", "lastmodifiedtime": "01-Jan-1980 00:00:00", "vendor": "", "uniqueorderid": "1200050SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655026"}
+[2026-02-12 16:21:45,495] INFO      [NEHA] [WEBSOCKET] Order update received: 1200050SSFS1207, status=SENT
+[2026-02-12 16:21:45,495] WARNING   [NEHA] [WEBSOCKET] No Blitz mapping for order_id=1200050SSFS1207
+[2026-02-12 16:21:45,496] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:45,496] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "NORMAL", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "0", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "NORMAL", "error": "You Are Not Authorised To Access This Product. Get Intouch With Your CSE Desk", "orderstatus": "ERROR", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.23, "triggerprice": 0, "entrydatetime": "01-Jan-1980 00:00:00", "lastmodifiedtime": "01-Jan-1980 00:00:00", "vendor": "", "uniqueorderid": "1200050SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655026"}
+[2026-02-12 16:21:45,496] INFO      [NEHA] [WEBSOCKET] Order update received: 1200050SSFS1207, status=ERROR
+[2026-02-12 16:21:45,496] WARNING   [NEHA] [WEBSOCKET] No Blitz mapping for order_id=1200050SSFS1207
+[2026-02-12 16:21:45,672] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:45,673] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "NORMAL", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "0", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "NORMAL", "error": "", "orderstatus": "SENT", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.23, "triggerprice": 0, "entrydatetime": "01-Jan-1980 00:00:00", "lastmodifiedtime": "01-Jan-1980 00:00:00", "vendor": "", "uniqueorderid": "1200051SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655026"}
+[2026-02-12 16:21:45,673] INFO      [NEHA] [WEBSOCKET] Order update received: 1200051SSFS1207, status=SENT
+[2026-02-12 16:21:45,674] INFO      [NEHA] [WEBSOCKET] Updated cache for blitz_id=3156655026
+[2026-02-12 16:21:45,674] INFO      [NEHA] [WEBSOCKET] Skipping unmapped status SENT for order_id=1200051SSFS1207
+[2026-02-12 16:21:45,733] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:45,733] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "NORMAL", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "0", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "NORMAL", "error": "You Are Not Authorised To Access This Product. Get Intouch With Your CSE Desk", "orderstatus": "ERROR", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.23, "triggerprice": 0, "entrydatetime": "01-Jan-1980 00:00:00", "lastmodifiedtime": "01-Jan-1980 00:00:00", "vendor": "", "uniqueorderid": "1200051SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655026"}
+[2026-02-12 16:21:45,733] INFO      [NEHA] [WEBSOCKET] Order update received: 1200051SSFS1207, status=ERROR
+[2026-02-12 16:21:45,734] INFO      [NEHA] [WEBSOCKET] Updated cache for blitz_id=3156655026
+[2026-02-12 16:21:45,734] INFO      [NEHA] Published BY WEBSOCKET
+[2026-02-12 16:21:46,204] ERROR     [NEHA] [PLACE_ORDER ERROR] {"MessageType": "PLACE_ORDER", "TPOmsName": "MOFL", "UserId": "NEHA", "Data": [{"SequenceNumber": 0, "Account": "", "ExchangeClientID": "NEHA", "BlitzAppOrderID": "3156655026", "ExchangeOrderID": "0", "ExchangeSegment": "NSECM", "ExchangeInstrumentID": 17376, "OrderSide": "Buy", "OrderType": "LIMIT", "ProductType": "MIS", "TimeInForce": "GFD", "OrderPrice": 1.23, "OrderQuantity": 1, "OrderStopPrice": 0.0, "OrderStatus": "Rejected", "OrderAverageTradedPrice": "", "LeavesQuantity": 0, "CumulativeQuantity": 0, "OrderDisclosedQuantity": 0, "OrderGeneratedDateTime": "", "ExchangeTransactTime": "", "LastUpdateDateTime": "", "CancelRejectReason": "You Are Not Authorised To Access This Product. Get Intouch With Your CSE Desk", "LastTradedPrice": 0.0, "LastTradedQuantity": 0, "LastExecutionTransactTime": "", "ExecutionID": ""}]}
+[2026-02-12 16:21:46,323] INFO      [NEHA] [BLITZ-OUTBOUND][WEBSOCKET] Publishing order update: {"SequenceNumber": 0, "Account": "SSFS1207", "ExchangeClientID": "NEHA", "BlitzAppOrderID": 3156655026, "ExchangeOrderID": "0", "ExchangeSegment": "NSECM", "ExchangeInstrumentID": 17376, "OrderSide": "Buy", "OrderType": "LIMIT", "ProductType": "MIS", "TimeInForce": "GFD", "OrderPrice": 0.0, "OrderQuantity": 1, "OrderStopPrice": 0.0, "OrderStatus": "Rejected", "OrderAverageTradedPrice": 0.0, "LeavesQuantity": 1, "CumulativeQuantity": 0, "OrderDisclosedQuantity": 0, "OrderGeneratedDateTime": "01-Jan-1980 00:00:00", "ExchangeTransactTime": "01-Jan-1980 00:00:00", "LastUpdateDateTime": "01-Jan-1980 00:00:00", "CancelRejectReason": "You Are Not Authorised To Access This Product. Get Intouch With Your CSE Desk", "LastTradedPrice": 0.0, "LastTradedQuantity": 0, "LastExecutionTransactTime": "01-Jan-1980 00:00:00", "ExecutionID": ""}
+[2026-02-12 16:21:46,323] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:46,323] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "NORMAL", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "0", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "NORMAL", "error": "", "orderstatus": "SENT", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.23, "triggerprice": 0, "entrydatetime": "01-Jan-1980 00:00:00", "lastmodifiedtime": "01-Jan-1980 00:00:00", "vendor": "", "uniqueorderid": "1200052SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655026"}
+[2026-02-12 16:21:46,324] INFO      [NEHA] [WEBSOCKET] Order update received: 1200052SSFS1207, status=SENT
+[2026-02-12 16:21:46,324] WARNING   [NEHA] [WEBSOCKET] No Blitz mapping for order_id=1200052SSFS1207
+[2026-02-12 16:21:46,324] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:21:46,324] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "NORMAL", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "0", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "NORMAL", "error": "You Are Not Authorised To Access This Product. Get Intouch With Your CSE Desk", "orderstatus": "ERROR", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.23, "triggerprice": 0, "entrydatetime": "01-Jan-1980 00:00:00", "lastmodifiedtime": "01-Jan-1980 00:00:00", "vendor": "", "uniqueorderid": "1200052SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655026"}
+[2026-02-12 16:21:46,324] INFO      [NEHA] [WEBSOCKET] Order update received: 1200052SSFS1207, status=ERROR
+[2026-02-12 16:21:46,324] WARNING   [NEHA] [WEBSOCKET] No Blitz mapping for order_id=1200052SSFS1207
+[2026-02-12 16:21:48,236] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:21:48,237] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:22:18,240] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:22:18,241] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:22:48,247] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:22:48,248] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:23:18,251] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:23:18,252] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:23:48,254] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:23:48,255] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:24:18,256] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:24:18,258] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:24:48,264] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:24:48,265] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:25:18,266] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:25:18,268] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:25:48,268] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:25:48,269] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:26:18,271] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:26:18,272] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:26:48,278] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:26:48,279] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:27:18,285] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:27:18,287] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:27:23,302] WARNING   [NEHA] Logout API call failed: MotilalAuthAPI.logout() got an unexpected keyword argument 'access_token'
+[2026-02-12 16:27:23,303] INFO      [NEHA] [WEBSOCKET] Heartbeat stopping entity=NEHA
+[2026-02-12 16:27:23,349] WARNING   [NEHA] [WEBSOCKET] Closed: code=None, reason=None, entity=NEHA
+[2026-02-12 16:27:23,349] INFO      [NEHA] Stopped MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:27:23,350] ERROR     [NEHA] [WEBSOCKET] Reconnect stopped due to auth failure
+[2026-02-12 16:27:24,841] INFO      [NEHA] Starting adapter
+[2026-02-12 16:27:24,844] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:27:24,846] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:27:25,477] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:27:25,477] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:27:25,479] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:27:25,480] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:27:25,480] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:27:25,481] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:27:25,481] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:27:25,532] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:27:25,888] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:27:25,888] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:27:25,889] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:27:25,949] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:27:25,950] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:27:25,950] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:27:25,950] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:27:25,950] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:27:26,010] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:27:26,010] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:27:26,010] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:27:26,010] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:27:55,894] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:27:55,894] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:28:25,899] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:28:25,900] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:28:55,906] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:28:55,908] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:29:25,911] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:29:25,912] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:29:55,913] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:29:55,914] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:30:25,920] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:30:25,921] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:30:55,935] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:30:55,937] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:31:25,942] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:31:25,943] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:31:55,945] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:31:55,947] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:32:25,953] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:32:25,954] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:32:50,656] WARNING   [NEHA] Logout API call failed: MotilalAuthAPI.logout() got an unexpected keyword argument 'access_token'
+[2026-02-12 16:32:50,657] INFO      [NEHA] [WEBSOCKET] Heartbeat stopping entity=NEHA
+[2026-02-12 16:32:50,709] WARNING   [NEHA] [WEBSOCKET] Closed: code=None, reason=None, entity=NEHA
+[2026-02-12 16:32:50,709] ERROR     [NEHA] [WEBSOCKET] Reconnect stopped due to auth failure
+[2026-02-12 16:32:50,709] INFO      [NEHA] Stopped MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:32:51,704] INFO      [NEHA] Starting adapter
+[2026-02-12 16:32:51,705] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:32:51,707] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:32:52,220] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:32:52,220] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:32:52,223] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:32:52,223] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:32:52,224] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:32:52,224] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:32:52,225] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:32:52,322] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:32:52,559] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:32:52,559] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:32:52,560] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:32:52,665] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:32:52,665] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:32:52,665] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:32:52,665] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:32:52,665] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:32:52,752] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:32:52,752] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:32:52,752] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:32:52,752] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:33:03,686] WARNING   [NEHA] Logout API call failed: MotilalAuthAPI.logout() got an unexpected keyword argument 'access_token'
+[2026-02-12 16:33:03,686] INFO      [NEHA] [WEBSOCKET] Heartbeat stopping entity=NEHA
+[2026-02-12 16:33:03,731] WARNING   [NEHA] [WEBSOCKET] Closed: code=None, reason=None, entity=NEHA
+[2026-02-12 16:33:03,732] INFO      [NEHA] Stopped MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:33:03,732] ERROR     [NEHA] [WEBSOCKET] Reconnect stopped due to auth failure
+[2026-02-12 16:33:04,507] INFO      [NEHA] Starting adapter
+[2026-02-12 16:33:04,507] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:33:04,508] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:33:04,864] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:33:04,864] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:33:04,866] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:33:04,866] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:33:04,866] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:33:04,866] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:33:04,866] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:33:05,015] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:33:05,234] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:33:05,234] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:33:05,234] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:33:05,497] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:05,497] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:33:05,497] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:33:05,497] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:33:05,497] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:33:05,543] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:05,543] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:33:05,543] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:05,543] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:33:26,506] WARNING   [NEHA] Logout API call failed: MotilalAuthAPI.logout() got an unexpected keyword argument 'access_token'
+[2026-02-12 16:33:26,506] INFO      [NEHA] [WEBSOCKET] Heartbeat stopping entity=NEHA
+[2026-02-12 16:33:26,557] WARNING   [NEHA] [WEBSOCKET] Closed: code=None, reason=None, entity=NEHA
+[2026-02-12 16:33:26,557] ERROR     [NEHA] [WEBSOCKET] Reconnect stopped due to auth failure
+[2026-02-12 16:33:26,561] INFO      [NEHA] Stopped MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:33:27,425] INFO      [NEHA] Starting adapter
+[2026-02-12 16:33:27,426] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 16:33:27,427] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 16:33:27,692] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 16:33:27,692] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 16:33:27,694] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 16:33:27,694] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 16:33:27,694] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 16:33:27,695] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 16:33:27,695] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 16:33:27,750] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 16:33:27,968] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 16:33:27,968] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 16:33:27,968] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 16:33:28,009] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:28,009] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 16:33:28,010] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 16:33:28,010] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 16:33:28,010] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 16:33:28,080] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:28,080] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 16:33:28,080] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:28,080] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 16:33:57,975] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:33:57,978] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:33:59,605] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 16:33:59,606] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"ordercategory": "DELIVERY", "clientid": "SSFS1207", "exchange": "NSE", "symboltoken": 17376, "symbol": "EXCEL EQ", "series": "EQ", "expirydate": "0", "strikeprice": 0, "optiontype": "EQ", "orderid": "1100000077944011", "orderinitiatorid": "SSFS1207", "ordertype": "Limit", "orderduration": "DAY", "producttype": "DELIVERY", "error": "", "orderstatus": "CANCEL", "buyorsell": "BUY", "totalqtyremaining": 1, "orderqty": 1, "qtytradedtoday": 0, "disclosedqty": 0, "price": 1.19, "triggerprice": 0, "entrydatetime": "12-Feb-2026 14:59:33", "lastmodifiedtime": "12-Feb-2026 16:33:36", "vendor": "", "uniqueorderid": "1200026SSFS1207", "goodtilldate": "", "algoid": 0, "algocategory": 0, "averageprice": 0, "totalqtytraded": 0, "lotsize": 1, "tag": "3156655000"}
+[2026-02-12 16:33:59,607] INFO      [NEHA] [WEBSOCKET] Order update received: 1200026SSFS1207, status=CANCEL
+[2026-02-12 16:33:59,607] WARNING   [NEHA] [WEBSOCKET] No Blitz mapping for order_id=1200026SSFS1207
+[2026-02-12 16:34:27,984] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:34:27,986] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:34:57,989] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:34:57,990] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:35:27,996] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:35:27,997] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:35:58,000] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:35:58,002] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA
+[2026-02-12 16:36:28,008] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 16:36:28,011] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA

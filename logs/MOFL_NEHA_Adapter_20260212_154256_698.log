@@ -1,0 +1,25 @@
+[2026-02-12 15:42:56,698] INFO      [NEHA] Starting adapter
+[2026-02-12 15:42:56,698] INFO      [NEHA] Initializing MotilalAdapter for entity 'NEHA'
+[2026-02-12 15:42:56,698] INFO      [NEHA] [API REQUEST] Performing login for client_id=SSFS1207
+[2026-02-12 15:42:56,883] INFO      [NEHA] [API RESPONSE]~{"status": "SUCCESS", "message": "Return Auth Token SUCCESS", "errorcode": "", "AuthToken": "6a36dec612c441d18c0370cab31874c8_M", "isAuthTokenVerified": "TRUE"}
+[2026-02-12 15:42:56,884] INFO      [NEHA] Login successful! AuthToken received.
+[2026-02-12 15:42:56,886] INFO      [NEHA] Login successful! Token received from auth API.
+[2026-02-12 15:42:56,886] INFO      [NEHA] Order and Portfolio APIs initialized. Ready to connect.
+[2026-02-12 15:42:56,886] INFO      [NEHA] [ADAPTER] Starting Motilal WebSocket connection...
+[2026-02-12 15:42:56,887] INFO      [NEHA] [WEBSOCKET] Started for entity=NEHA, client_id=SSFS1207
+[2026-02-12 15:42:56,887] INFO      [NEHA] [ADAPTER] Motilal WebSocket started successfully
+[2026-02-12 15:42:56,950] INFO      [NEHA] Adapter connected successfully
+[2026-02-12 15:42:57,054] INFO      [NEHA] [WEBSOCKET] Connected entity=NEHA, sending auth
+[2026-02-12 15:42:57,054] INFO      [NEHA] [WEBSOCKET] Sending None: {"clientid": "SSFS1207", "authtoken": "6a36dec612c441d18c0370cab31874c8_M", "apikey": "seHmm4lPijruKWRl"}
+[2026-02-12 15:42:57,055] INFO      [NEHA] [WEBSOCKET] Heartbeat started (interval=30s)
+[2026-02-12 15:42:57,086] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 15:42:57,086] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Auth success", "errorcode": ""}
+[2026-02-12 15:42:57,086] INFO      [NEHA] [WEBSOCKET] Auth success, subscribing entity=NEHA
+[2026-02-12 15:42:57,086] INFO      [NEHA] [WEBSOCKET] Sending OrderSubscribe: {"clientid": "SSFS1207", "action": "OrderSubscribe"}
+[2026-02-12 15:42:57,086] INFO      [NEHA] [WEBSOCKET] Sending TradeSubscribe: {"clientid": "SSFS1207", "action": "TradeSubscribe"}
+[2026-02-12 15:42:57,122] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 15:42:57,122] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Order Subscribed Success", "errorcode": ""}
+[2026-02-12 15:42:57,123] INFO      [NEHA] [WEBSOCKET] _on_message received
+[2026-02-12 15:42:57,123] INFO      [NEHA] [TPOMS-INBOUND][WebSocket] Incoming message:{"status": "SUCCESS", "message": "Trade Subscribed Success", "errorcode": ""}
+[2026-02-12 15:43:27,061] INFO      [NEHA] [WEBSOCKET] Sending heartbeat: {"action": "heartbeat", "clientid": "SSFS1207"}
+[2026-02-12 15:43:27,063] INFO      [NEHA] [WEBSOCKET] Heartbeat sent entity=NEHA

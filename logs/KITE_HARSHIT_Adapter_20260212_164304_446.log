@@ -1,0 +1,19 @@
+[2026-02-12 16:43:04,447] INFO      [HARSHIT] Starting adapter
+[2026-02-12 16:43:04,447] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
+[2026-02-12 16:43:04,448] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
+[2026-02-12 16:43:08,584] INFO      [HARSHIT] LOGIN_SUCCESS | Access token received: uzPVN331i1Dk8CIdm5QX1cf2ThJn4QGU
+[2026-02-12 16:43:08,585] INFO      [HARSHIT] [INSTRUMENTS] CSV already exists
+[2026-02-12 16:43:08,718] INFO      [HARSHIT] [INSTRUMENTS] Loaded 170461 rows
+[2026-02-12 16:43:08,718] INFO      [HARSHIT] INSTRUMENTS_READY | Instruments loaded
+[2026-02-12 16:43:08,719] INFO      [HARSHIT] Adapter READY | Zerodha adapter initialized
+[2026-02-12 16:43:08,719] INFO      [HARSHIT] WS_START | Starting Zerodha WebSocket
+[2026-02-12 16:43:08,781] INFO      [HARSHIT] Adapter connected successfully
+[2026-02-12 16:43:08,890] INFO      [HARSHIT] [WEBSOCKET] Connected to Zerodha
+[2026-02-12 16:43:26,480] INFO      [HARSHIT] COMMAND | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'SymbolName': 'IDEA', 'ExchangeInstrumentName': 'IDEA', 'ProductType': 'MIS', 'OrderType': 'MARKET', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 1, 'LimitPrice': 0.0, 'StopPrice': 0.0, 'BlitzAppOrderID': 3156655060, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-12 16:43:26,481] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156655060
+[2026-02-12 16:43:26,482] INFO      [HARSHIT] [TPOMS-OUTBOUND] | payload={'tradingsymbol': 'IDEA', 'exchange': 'NSE', 'transaction_type': 'BUY', 'order_type': 'MARKET', 'quantity': 1, 'product': 'MIS', 'price': 0.0, 'trigger_price': 0.0, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-12 16:43:26,614] INFO      [HARSHIT] [TPOMS-INBOUND] | payload={'status': 'error', 'message': 'Your order could not be converted to a After Market Order (AMO).', 'data': {'hints': ['switch_to_amo']}, 'error_type': 'InputException'}
+[2026-02-12 16:43:26,614] INFO      [HARSHIT] [BLITZ-OUTBOUND] | payload={'SequenceNumber': 0, 'Account': '', 'ExchangeClientID': 'HARSHIT', 'BlitzAppOrderID': 3156655060, 'ExchangeOrderID': '', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'OrderSide': 'Buy', 'OrderType': 'MARKET', 'ProductType': 'MIS', 'TimeInForce': 'GFD', 'OrderPrice': 0.0, 'OrderQuantity': 1, 'OrderStopPrice': 0.0, 'OrderStatus': 'Rejected', 'OrderAverageTradedPrice': '', 'LeavesQuantity': 0, 'CumulativeQuantity': 0, 'OrderDisclosedQuantity': 0, 'OrderGeneratedDateTime': '', 'ExchangeTransactTime': '', 'LastUpdateDateTime': '', 'CancelRejectReason': 'Your order could not be converted to a After Market Order (AMO).', 'LastTradedPrice': 0.0, 'LastTradedQuantity': 0, 'LastExecutionTransactTime': '', 'ExecutionID': ''}
+[2026-02-12 16:44:21,992] INFO      [HARSHIT] [WEBSOCKET] Stopping WebSocket connection
+[2026-02-12 16:44:21,994] INFO      [HARSHIT] [WEBSOCKET] State cleared
+[2026-02-12 16:44:21,994] INFO      [HARSHIT] Adapter STOP | Zerodha adapter stopped
