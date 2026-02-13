@@ -122,7 +122,7 @@ class ZerodhaWebSocket:
 
                 # >>> CHANGED: cache WS update instead of dropping it
                 if not blitz_request:
-                    self.logger.warning(
+                    self.logger.info(
                         "ZERODHA_WS_PENDING | order_id=%s payload=%s",
                         order_id,
                         data
@@ -182,8 +182,9 @@ class ZerodhaWebSocket:
                     order_log.__dict__
                 )
 
+                response = self.formatter.order_update(order_log)
                 self.redis_client.publish(
-                    self.formatter.order_update(order_log)
+                    response.get("Data")
                 )
 
                 self.order_state_cache[order_id] = {
@@ -220,8 +221,9 @@ class ZerodhaWebSocket:
                     order_log.__dict__
                 )
 
+                response = self.formatter.order_update(order_log)
                 self.redis_client.publish(
-                    self.formatter.order_update(order_log)
+                    response.get("Data")
                 )
 
                 self.order_state_cache[order_id] = {
@@ -251,8 +253,9 @@ class ZerodhaWebSocket:
                     order_log.__dict__
                 )
 
+                response = self.formatter.order_update(order_log)
                 self.redis_client.publish(
-                    self.formatter.order_update(order_log)
+                    response.get("Data")
                 )
 
                 self.order_state_cache[order_id] = {
@@ -279,8 +282,9 @@ class ZerodhaWebSocket:
                     order_log.__dict__
                 )
 
+                response = self.formatter.order_update(order_log)
                 self.redis_client.publish(
-                    self.formatter.order_update(order_log)
+                    response.get("Data")
                 )
 
                 self.order_state_cache[order_id] = {
@@ -302,9 +306,9 @@ class ZerodhaWebSocket:
                     order_id,
                     order_log.__dict__
                 )
-
+                response = self.formatter.order_update(order_log)
                 self.redis_client.publish(
-                    self.formatter.order_update(order_log)
+                    response.get("Data")
                 )
 
                 self.order_state_cache[order_id] = {

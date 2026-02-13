@@ -3,7 +3,14 @@ Common Request Handler for TPOMS
 Handles receiving, parsing, and validating Blitz TPOMS requests
 """
 import json
+# import logging
 from typing import Dict, Optional, Any, Tuple
+
+# logging.basicConfig(
+#     level=logging.INFO,
+#     format="[%(asctime)s] %(levelname)-9s [TPOMS] %(message)s",
+#     datefmt="%Y-%m-%d %H:%M:%S"
+# )
 
 
 class BlitzRequest:
@@ -75,7 +82,7 @@ class RequestHandler:
                 print(f"Invalid request: {error_msg}")
                 return None
             
-            print(f"Parsed request: Action={request.action}, TPOmsName={request.tpoms_name}, UserId={request.user_id}")
+            print(f"[TPOMS]: Action={request.action}, TPOmsName={request.tpoms_name}, UserId={request.user_id}")
             return request
             
         except ValueError as e:

@@ -1,4 +1,3 @@
-
 import json
 import os
 import sys
@@ -6,14 +5,14 @@ import threading
 import signal
 import atexit
 
+from Zerodha.zerodha_adapter import ZerodhaAdapter
 import config
 from common.redis_client import RedisClient
 from common.request_handler import RequestHandler
 from common.message_formatter import MessageFormatter
 from common.broker_order_mapper import OrderLog
 
-#from Motilal.motilal_adapter import MotilalAdapter
-from Zerodha.zerodha_adapter import ZerodhaAdapter
+from Motilal.motilal_adapter import MotilalAdapter
 
 from common.logging_setup import EntityLogger
 
@@ -35,7 +34,7 @@ if BASE_DIR not in sys.path:
 #     datefmt="%Y-%m-%d %H:%M:%S"
 # )
 
-print("TPOMS process starting")
+print("[TPOMS] process starting")
 
 redis_client = RedisClient()
 
@@ -44,9 +43,8 @@ redis_client = RedisClient()
 # =============================================================================
 
 BROKER_CONNECTOR_MAP = {
-
-    "KITE": ZerodhaAdapter,
-    #"MOFL": MotilalAdapter,
+    "MOFL": MotilalAdapter,
+    "KITE": ZerodhaAdapter
 }
 
 connectors = {}
@@ -80,8 +78,8 @@ def publish_response(message_type, broker, entity_id, status, message):
         "TPOMS_CONNECT",
         "TPOMS_DISCONNECT",
         "TPOMS_REFRESH",
-        "WEBSOCKET_CONNECTED",
-        "WEBSOCKET_DISCONNECTED",
+        # "WEBSOCKET_CONNECTED",
+        # "WEBSOCKET_DISCONNECTED",
     }:
         response = formatter.connection_status(status, message)
     else:
@@ -273,7 +271,8 @@ def process_redis_message(raw_data):
         connector.process_command(request.payload)
 
     except Exception as e:
-        logging.exception(str(e))
+        # logging.exception(str(e))
+        print(f"Exception {e}")
 
 
 # =============================================================================
@@ -288,13 +287,11 @@ def shutdown():
 
     print("Shutting down TPOMS")
 
-    # Use handle_disconnect for each active connector
-    for key in list(connectors.keys()):
+    for connector in connectors.values():
         try:
-            broker, entity = key.split(":", 1)
-            handle_disconnect(broker, entity, connectors.get(key))
-        except Exception as e:
-            print(f"Failed to disconnect {key}: {e}")
+            connector.stop()
+        except Exception:
+            pass
 
 
 # =============================================================================
@@ -305,7 +302,7 @@ def main():
     pubsub = redis_client.connection.pubsub()
     pubsub.subscribe(config.CH_BLITZ_REQUESTS)
 
-    print(f"Listening on {config.CH_BLITZ_REQUESTS}")
+    print(f"[TPOMS] Listening on {config.CH_BLITZ_REQUESTS}")
 
     signal.signal(signal.SIGTERM, lambda *_: shutdown())
     atexit.register(shutdown)

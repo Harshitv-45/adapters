@@ -210,6 +210,32 @@ class MotilalOswalOrderAPI:
                     raise Exception(json.dumps(json_response))
         
         return json_response
+    
+    
+    # ------------------------------------------------------------------
+    # Trade Book
+    # ------------------------------------------------------------------
+    def get_tradebook(self):
+        url = f"{self.BASE_URL}/rest/book/v1/gettradebook"
+        payload = {"clientcode": self.client_code}
+
+        res = requests.post(url, headers=self._headers(), json=payload)
+        res.raise_for_status()
+
+        if not res.text or not res.text.strip():
+            return {"status": "SUCCESS", "data": []}
+
+        json_response = res.json()
+        status = json_response.get("status", "").upper()
+        
+        if json_response.get("data") is None:
+                json_response["data"] = []
+
+        if status == "SUCCESS":
+            return json_response
+
+        raise Exception(json.dumps(json_response))
+    
     # ------------------------------------------------------------------
     # Order Book
     # ------------------------------------------------------------------
@@ -249,26 +275,6 @@ class MotilalOswalOrderAPI:
 
         raise Exception(json.dumps(json_response, indent=2))
 
-    # ------------------------------------------------------------------
-    # Trade Book
-    # ------------------------------------------------------------------
-    def get_tradebook(self):
-        url = f"{self.BASE_URL}/rest/book/v1/gettradebook"
-        payload = {"clientcode": self.client_code}
-
-        res = requests.post(url, headers=self._headers(), json=payload)
-        res.raise_for_status()
-
-        if not res.text or not res.text.strip():
-            return {"status": "SUCCESS", "data": []}
-
-        json_response = res.json()
-        status = json_response.get("status", "").upper()
-
-        if status == "SUCCESS":
-            return json_response
-
-        raise Exception(json.dumps(json_response))
 
     # ------------------------------------------------------------------
     # Order History

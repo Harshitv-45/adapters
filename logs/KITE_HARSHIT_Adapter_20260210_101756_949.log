@@ -1,4 +1,0 @@
-[2026-02-10 10:17:56,950] INFO      [HARSHIT] Starting adapter
-[2026-02-10 10:17:56,950] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
-[2026-02-10 10:17:56,951] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
-[2026-02-10 10:18:00,785] ERROR     [HARSHIT] LOGIN_FAILED | Invalid credentials

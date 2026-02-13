@@ -12,7 +12,6 @@ class MessageFormatter:
             "Data": {"status": status, "message": message}
         }
     
-   
     def system_event(self, status, entity_id=None, **kwargs):
         data = {"status": status}
         data.update(kwargs)
@@ -26,8 +25,12 @@ class MessageFormatter:
     def order_update(self, order_log, entity_id=None, message_type=None):
         """Blitz-format order update. message_type: request Action (e.g. PLACE_ORDER) to correlate response."""
         order_data = order_log.to_dict() if hasattr(order_log, 'to_dict') else order_log
-        return order_data
-
+        return {
+            "MessageType": message_type or "TPOMSOrderUpdate",
+            "TPOmsName": self.tpoms_name,
+            "UserId": entity_id or self.entity_id,
+            "Data": order_data
+        }
 
     def orders(self, orders_data, entity_id=None, message_type=None):
         """Blitz-format orders response. message_type: request Action (e.g. PLACE_ORDER) so response maps to request."""

@@ -1,5 +1,3 @@
-
-
 import logging
 import os
 from datetime import datetime
@@ -19,7 +17,9 @@ _LOCK = Lock()
 
 class TPOMSFormatter(logging.Formatter):
     def format(self, record):
-        timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
+        # timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S,%f")[:-3]
+        timestamp = datetime.fromtimestamp(record.created).strftime("%Y-%m-%d %H:%M:%S")
+
         level = record.levelname.ljust(9)
         entity = getattr(record, "entity", record.name)
         message = record.getMessage()

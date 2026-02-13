@@ -300,6 +300,7 @@ class MotilalWebSocket:
             # Order Updates
             # -------------------------------------------------
             order_id = msg_data.get("uniqueorderid")
+            blitz_id = msg_data.get("tag")
             if order_id:
                 self.logger.info(
                     f"[WEBSOCKET] Order update received: {order_id}, "
@@ -316,10 +317,22 @@ class MotilalWebSocket:
                 )
 
                 if not blitz_id:
-                    self.logger.warning(
-                        f"[WEBSOCKET] No Blitz mapping for order_id={order_id}"
-                    )
-                    return
+                    blitz_id = msg_data.get("tag")
+                    if blitz_id:
+                        self.logger.warning(
+                            f"[WEBSOCKET] Auto-creating mapping "
+                            f"{order_id} -> {blitz_id}"
+                        )
+
+                        # Store both directions
+                        self.order_id_mapper[str(order_id)] = str(blitz_id)
+                        self.order_id_mapper[str(blitz_id)] = str(order_id)
+                    else:
+                        self.logger.warning(
+                            f"[WEBSOCKET] No Blitz ID available to create mapping for order_id={order_id}"
+                        )
+                        return
+
 
                 action = self.blitz_order_action.get(blitz_id)
                 cached_data = self.blitz_order_cache.get(blitz_id)
@@ -333,13 +346,19 @@ class MotilalWebSocket:
 
                 if cached_data is None:
                     cached_data = {}
-                elif not isinstance(cached_data, dict):
+                # elif not isinstance(cached_data, dict):
                    
+                #     cached_data = {
+                #         k: getattr(cached_data, k)
+                #         for k in dir(cached_data)
+                # if not k.startswith("_") and not callable(getattr(cached_data, k))
+                elif not isinstance(cached_data, dict):
                     cached_data = {
                         k: getattr(cached_data, k)
                         for k in dir(cached_data)
-                if not k.startswith("_") and not callable(getattr(cached_data, k))
-            }
+                        if not k.startswith("_") and not callable(getattr(cached_data, k))
+                    }
+
                 last_modified = msg_data.get("lastmodifiedtime")
                 cached_data["LastModifiedDateTime"] = last_modified
 

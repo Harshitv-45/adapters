@@ -1,5 +1,6 @@
 import redis
 import json
+
 import config
 
 class RedisClient:
@@ -25,7 +26,8 @@ class RedisClient:
         try:
             payload = json.dumps(message, default=default) if not isinstance(message, str) else message
             self._connection.publish(self._channel, payload)
-
             return True
+            
         except Exception as e:
+            print(f"Failed to publish to {self._channel}: {e}")
             return False

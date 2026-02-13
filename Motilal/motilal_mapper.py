@@ -35,7 +35,9 @@ class MotilalMapper:
         "MIS": "NORMAL",
         "CNC": "DELIVERY",
         "NORMAL": "MIS",
-        "DELIVERY":"CNC"
+        "DELIVERY":"CNC",
+        # "NORMAL":"NRML",
+        # "NRML":"NORMAL"
 
     }
 
@@ -143,6 +145,7 @@ class MotilalMapper:
             "STOPLOSS":"STOPLIMIT"
         }
         return map_type.get(str(type).upper())
+    
     @staticmethod
     def to_motilal(data):
         exchange_instrument_id = data.get("ExchangeInstrumentID")
@@ -408,7 +411,7 @@ class MotilalMapper:
                 )
                 return blitz_id
 
-            print(f"No Blitz mapping found for uniqueorderid={order_id}")
+            #print(f"No Blitz mapping found for uniqueorderid={order_id}")
             return None
 
         else:

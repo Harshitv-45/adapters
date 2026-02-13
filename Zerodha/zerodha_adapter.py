@@ -465,7 +465,7 @@ class ZerodhaAdapter:
     # ============================================================
     def _publish_order_update(self, order_log):
         message = self.formatter.order_update(order_log)
-        self.redis_client.publish(message)
+        self.redis_client.publish(message.get("Data"))
 
     @property
     def websocket(self):

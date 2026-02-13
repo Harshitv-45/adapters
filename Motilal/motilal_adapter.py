@@ -624,22 +624,31 @@ class MotilalAdapter:
     def handle_get_trades(self, action):
         if not self.order_api:
             raise RuntimeError("Not logged in! LOGIN first.")
-        self.logger.info("[MOTILAL API REQUEST] GET_TRADES - No parameters")
+
+        # -------------------------
+        # INBOUND (Motilal)
+        # -------------------------
+        self.logger.info("[API REQUEST] Requesting tradebook")
+
         api_response = self.order_api.get_tradebook()
-        self.logger.info(f"[MOTILAL API RESPONSE] GET_TRADES - Full response: {json.dumps(api_response, default=str)}")
-        if isinstance(api_response, dict) and api_response.get("status", "").upper() == "ERROR":
-            self.logger.error(f"[MOTILAL API RESPONSE] GET_TRADES - Status: ERROR, Message: {api_response.get('message', 'Unknown error')}")
-        else:
-            trades_count = len(api_response.get("data", [])) if isinstance(api_response, dict) else 0
-            self.logger.info(f"[MOTILAL API RESPONSE] GET_TRADES - Status: SUCCESS, Trades count: {trades_count}")
-        data = api_response.get("data", []) if isinstance(api_response, dict) else []
-        if data is None or not isinstance(data, list):
-            data = []
-        blitz_response = self.formatter.trades(data, entity_id=self.entity_id, message_type=action)
-        self.logger.info(f"[BLITZ RESPONSE] GET_TRADES - Response: {json.dumps(blitz_response, default=str)}")
+        data = api_response["data"]  # guaranteed list
+
+        self.logger.info(
+            f"[TPOMS-INBOUND] SUCCESS | trades_count={len(data)}"
+        )
+
+        # -------------------------
+        # OUTBOUND (Blitz)
+        # -------------------------
+        blitz_response = self.formatter.trades(
+            data,
+            entity_id=self.entity_id,
+            message_type=action
+        )
+
         self.redis_client.publish(blitz_response)
-        
-    
+
+        self.logger.info(f"[BLITZ-OUTBOUND] Payload: " f"{json.dumps(data, default=str)}")
 
     def process_command(self, payload):
         action = payload.get("Action")
@@ -663,7 +672,7 @@ class MotilalAdapter:
             elif action == "GET_ORDERS":
                 self.handle_get_orders(action)
                 return
-            elif action == "GET_TRADES":
+            elif action == "DROPCOPY_TRADES":
                 self.handle_get_trades(action)
                 return
 
