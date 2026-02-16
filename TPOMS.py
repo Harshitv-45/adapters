@@ -7,7 +7,7 @@ import atexit
 from typing import Optional
 
 sys.path.append("..")
-
+from Motilal.motilal_adapter import MotilalAdapter
 from Zerodha.zerodha_adapter import ZerodhaAdapter
 from common import config
 from common.redis_client import RedisClient
@@ -45,7 +45,8 @@ redis_client = RedisClient()
 # =============================================================================
 
 BROKER_CONNECTOR_MAP = {
-    "KITE": ZerodhaAdapter
+    "KITE": ZerodhaAdapter,
+    "MOTILAL": MotilalAdapter
 }
 
 connectors = {}
