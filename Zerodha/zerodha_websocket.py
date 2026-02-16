@@ -1,5 +1,5 @@
 from kiteconnect import KiteTicker
-from Zerodha.zerodha_mapper import ZerodhaMapper
+from Zerodha.zerodha_adapter import ZerodhaMapper
 import threading
 
 

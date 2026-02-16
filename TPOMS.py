@@ -4,15 +4,17 @@ import sys
 import threading
 import signal
 import atexit
+from typing import Optional
+
+sys.path.append("..")
 
 from Zerodha.zerodha_adapter import ZerodhaAdapter
-import config
+from common import config
 from common.redis_client import RedisClient
 from common.request_handler import RequestHandler
 from common.message_formatter import MessageFormatter
 from common.broker_order_mapper import OrderLog
 
-from Motilal.motilal_adapter import MotilalAdapter
 
 from common.logging_setup import EntityLogger
 
@@ -43,7 +45,6 @@ redis_client = RedisClient()
 # =============================================================================
 
 BROKER_CONNECTOR_MAP = {
-    "MOFL": MotilalAdapter,
     "KITE": ZerodhaAdapter
 }
 

@@ -1,9 +1,5 @@
 import json
 import requests
-import logging
-
-
-
 
 class MotilalOswalOrderAPI:
     BASE_URL = "https://openapi.motilaloswal.com"
@@ -302,3 +298,22 @@ class MotilalOswalOrderAPI:
             return json_response
 
         raise Exception(json.dumps(json_response))
+    
+     # ==================================================================
+    # PORTFOLIO APIs
+    # ==================================================================
+
+    
+    def get_holdings(self):
+        url = f"{self.BASE_URL}/rest/report/v1/getholdings"
+        payload = {"clientcode": self.client_code}
+
+        res = requests.post(url, headers=self._headers(), json=payload)
+        return res.json()
+
+    def get_positions(self):
+        url = f"{self.BASE_URL}/rest/report/v1/getpositions"
+        payload = {"clientcode": self.client_code}
+
+        res = requests.post(url, headers=self._headers(), json=payload)
+        return res.json()

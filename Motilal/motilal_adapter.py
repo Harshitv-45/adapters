@@ -4,20 +4,435 @@ import os
 import threading
 import time
 
+from Motilal.order_api import MotilalOswalOrderAPI
+
 #from scrpicode import MotilalScripAPI
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from Motilal.auth_api import MotilalAuthAPI
 from common.request_handler import RequestHandler
 
-from Motilal.motilal_mapper import MotilalMapper
-from Motilal.api.order import MotilalOswalOrderAPI
-from Motilal.api.portfolio import MotilalPortfolioAPI
-from Motilal.api.auth import MotilalAuthAPI
-from Motilal.motilal_websocket import MotilalWebSocket
 from common.message_formatter import MessageFormatter
 from common.redis_client import RedisClient
 from common.broker_order_mapper import OrderLog
+
+from common.broker_order_mapper import OrderLog
+
+# -----------------------------------------------------------------------------
+NSEFO_LOT_SIZES = {
+    "NIFTY": 65,
+    "BANKNIFTY": 30,
+    "FINNIFTY": 60,
+    "MIDCPNIFTY": 50,
+
+}
+DEFAULT_NSEFO_LOT = 65
+
+
+def _nsefo_lot_size(symbol_name):
+    """Return lot size for NSEFO from symbol (e.g. NIFTY, BANKNIFTY). First word of name used."""
+    if not symbol_name:
+        return DEFAULT_NSEFO_LOT
+    sym = str(symbol_name).strip().upper().split()[0] if symbol_name else ""
+    return NSEFO_LOT_SIZES.get(sym, DEFAULT_NSEFO_LOT)
+
+
+class MotilalMapper:
+
+    @staticmethod
+    def _filter_payload(payload, required_fields):
+        """Filter payload to include only required fields, ignore extra fields"""
+        filtered = {}
+        for field in required_fields:
+            if field in payload:
+                filtered[field] = payload[field]
+        return filtered
+
+    @staticmethod
+    def map_exchange_segment(seg):
+        if not seg:
+            return None
+
+        seg = str(seg).upper()
+
+        segment_map = {
+            "NSE": "NSECM",
+            "NSEFO": "NSEFO",
+            "NSECM": "NSE"
+
+        }
+
+        return segment_map.get(seg, seg)
+
+    PRODUCT_TYPE_MAP = {
+        "MIS": "NORMAL",
+        "CNC": "DELIVERY",
+        "NORMAL": "MIS",
+        "DELIVERY": "CNC",
+        # "NORMAL":"NRML",
+        # "NRML":"NORMAL"
+    }
+
+    @staticmethod
+    def map_producttype(value):
+        """
+        Generic product type mapper (works both ways)
+        """
+        if not value:
+            return None
+
+        value = str(value)
+        return MotilalMapper.PRODUCT_TYPE_MAP.get(value, value)
+
+    @staticmethod
+    def map_status(status, action=None):
+        if not status:
+            return None
+
+        status = str(status).strip().upper()
+        action = str(action).strip().upper()
+
+        # -------- ACTION-INDEPENDENT --------
+        if status == "TRADED":
+            return "Filled"
+
+        if status == "PARTIAL":
+            return "PartiallyFilled"
+
+        if status == "CANCEL":
+            return "Cancelled"
+
+        # -------- PLACE ORDER --------
+        if action == "PLACE_ORDER":
+            return {
+                "CONFIRM": "New",
+                "REJECTED": "Rejected",
+                "ERROR": "Rejected"
+            }.get(status)
+
+        # -------- MODIFY ORDER --------
+        if action == "MODIFY_ORDER":
+            return {
+                "CONFIRM": "Replaced",
+                "REJECTED": "ReplaceRejected",
+                "ERROR": "ReplaceRejected"
+            }.get(status)
+
+        # -------- CANCEL ORDER --------
+        if action == "CANCEL_ORDER":
+            return {
+                "CONFIRM": "Cancelled",
+                "REJECTED": "CancelRejected",
+                "ERROR": "CancelRejected"
+            }.get(status)
+
+        return None
+
+    @staticmethod
+    def map_tif_orderlog(validity):
+        """
+        Map Motilal validity string (DAY, GTC, IOC, GTD, etc.)
+        to Blitz TimeInForce (GFD, GTC, IOC, GTD, etc.)
+        """
+        if not validity:
+            return None
+
+        reverse_map = {
+            "DAY": "GFD",
+            "GTC": "GTC",
+            "IOC": "IOC",
+            "GTD": "GTD",
+        }
+
+        return reverse_map.get(str(validity).upper(), str(validity).upper())
+
+    @staticmethod
+    def map_tif(tif):
+        """
+        Map Blitz TimeInForce (numeric or string) to Motilal validity string
+        """
+        if not tif:
+            return None
+
+        string_map = {
+            "GFD": "DAY",   # Good For Day -> DAY
+            "GTC": "GTC",   # Good Till Cancel -> GTC
+            "IOC": "IOC",   # Immediate Or Cancel -> IOC
+            "FOK": "IOC",   # Fill Or Kill -> IOC
+            "GTD": "GTD",   # Good Till Date -> GTD
+            "COL": "DAY",   # COL -> DAY (default)
+            "DAY": "DAY",   # Already in Motilal format
+        }
+
+        return string_map.get(str(tif).upper())
+
+    @staticmethod
+    def map_ordertype(type):
+        if not type:
+            return None
+        map_type = {
+            "LIMIT": "LIMIT",
+            "MARKET": "MARKET",
+            "STOPLIMIT": "STOPLOSS",
+            "STOPLOSS": "STOPLIMIT"
+        }
+        return map_type.get(str(type).upper())
+
+    @staticmethod
+    def to_motilal(data):
+        exchange_instrument_id = data.get("ExchangeInstrumentID")
+
+        exchange_seg = data.get("ExchangeSegment")
+        exchange = MotilalMapper.map_exchange_segment(exchange_seg)
+        tag = data.get("BlitzAppOrderID")
+        side = (data.get("OrderSide"))
+
+        order_type = MotilalMapper.map_ordertype(data.get("OrderType"))
+
+        quantity = int(data.get("OrderQuantity") or 0)
+
+        if exchange == "NSEFO":
+            symbol_name = data.get("SymbolName") or data.get("ExchangeInstrumentName") or ""
+            lot_size = _nsefo_lot_size(symbol_name)
+            quantity = quantity // lot_size
+
+        product_type = MotilalMapper.map_producttype(data.get("ProductType"))
+
+        order_type_upper = order_type if order_type else ""
+        if order_type_upper == "MARKET":
+            price = 0.0
+        else:
+            price = float(data.get("LimitPrice"))
+
+        trigger_price = float(data.get("StopPrice") or 0.0)
+        blitz_time_in_force = data.get("TimeInForce")
+
+        validity = MotilalMapper.map_tif(blitz_time_in_force)
+        payload = {
+            "symboltoken": exchange_instrument_id,
+            "exchange": exchange,
+            "side": side,
+            "order_type": order_type,
+            "quantity": quantity,
+            "product_type": product_type,
+            "price": price,
+            "trigger_price": trigger_price,
+            "validity": validity,
+            "tag": tag,
+            "amoorder": "N"
+        }
+
+        disclosed_qty = int(data.get("DisclosedQuantity"))
+        if disclosed_qty > 0:
+            payload["disclosedquantity"] = disclosed_qty
+
+        required_fields = ["symboltoken", "exchange", "side", "order_type", "quantity",
+                          "product_type", "price", "trigger_price", "validity", "tag", "amoorder"]
+        if "disclosedquantity" in payload:
+            required_fields.append("disclosedquantity")
+
+        return MotilalMapper._filter_payload(payload, required_fields)
+
+    @staticmethod
+    def to_motilal_modify(data, cashed_data, order_id):
+        """Map Blitz OrderModification to Motilal MODIFY request"""
+
+        uniqueorderid = order_id
+
+        newordertype = MotilalMapper.map_ordertype(data.get("ModifiedOrderType"))
+        neworderduration = MotilalMapper.map_tif(data.get("ModifiedTimeInForce"))
+
+        newquantityinlot = int(data.get("ModifiedOrderQuantity"))
+
+        exchange = cashed_data.get("ExchangeSegment")
+        if exchange == "NSEFO":
+            symbol_name = cashed_data.get("SymbolName") or cashed_data.get("ExchangeInstrumentName") or cashed_data.get("symbol") or ""
+            lot_size = _nsefo_lot_size(symbol_name)
+            newquantityinlot = newquantityinlot // lot_size
+
+        traded_quantity = int(data.get("CummulativeQuantity") or 0)
+
+        lastmodifiedtime = (cashed_data.get("LastModifiedDateTime"))
+        payload = {
+            "uniqueorderid": uniqueorderid,
+            "newordertype": newordertype,
+            "neworderduration": neworderduration,
+            "newquantityinlot": newquantityinlot,
+            "qtytradedtoday": traded_quantity,
+            "lastmodifiedtime": lastmodifiedtime
+        }
+
+        if newordertype == "MARKET":
+            payload["newprice"] = 0
+            payload["newtriggerprice"] = 0
+        else:
+            payload["newprice"] = float(data.get("ModifiedLimitPrice") or 0)
+            payload["newtriggerprice"] = float(data.get("ModifiedStopPrice") or 0)
+
+        disclosed_qty = int(data.get("ModifiedDisclosedQuantity") or 0)
+
+        clientcode = data.get("Account")
+        if clientcode:
+            payload["clientcode"] = clientcode
+
+        return payload
+
+    @staticmethod
+    def error_to_orderlog(error_msg, blitz_data=None, err_status=None, action=None):
+        """
+        Build OrderLog for API errors.
+        """
+        order_log = OrderLog()
+        order_log.CancelRejectReason = error_msg
+
+        merged_data = blitz_data.copy() if blitz_data else {}
+
+        order_log.OrderStatus = MotilalMapper.map_status(err_status, action)
+
+        if merged_data:
+            order_log.BlitzAppOrderID = str(merged_data.get("BlitzAppOrderID") or "")
+            order_log.ExchangeInstrumentID = int(merged_data.get("ExchangeInstrumentID") or 0)
+            order_log.ExchangeOrderID = str(merged_data.get("ExchangeOrderID") or "0")
+            order_log.ExchangeSegment = merged_data.get("ExchangeSegment") or ""
+            order_log.OrderType = merged_data.get("OrderType") or merged_data.get("ModifiedOrderType") or ""
+            order_log.OrderSide = merged_data.get("OrderSide") or ""
+            order_log.ProductType = merged_data.get("ProductType") or merged_data.get("ModifiedProductType") or ""
+            order_log.OrderQuantity = int(merged_data.get("OrderQuantity") or merged_data.get("ModifiedOrderQuantity") or 0)
+            order_log.OrderPrice = float(merged_data.get("LimitPrice") or merged_data.get("ModifiedLimitPrice") or 0.0)
+            order_log.OrderStopPrice = float(merged_data.get("StopPrice") or merged_data.get("ModifiedStopPrice") or 0.0)
+            order_log.TimeInForce = merged_data.get("TimeInForce") or merged_data.get("ModifiedTimeInForce") or ""
+            order_log.OrderDisclosedQuantity = int(merged_data.get("DisclosedQuantity") or merged_data.get("ModifiedDisclosedQuantity") or 0)
+            order_log.Account = merged_data.get("Account") or ""
+            order_log.ExchangeClientID = merged_data.get("ExchangeClientID") or ""
+
+            _invalid_date = "01-Jan-1980 00:00:00"
+
+            def _clean_date(v):
+                v = (v or "").strip()
+                return "" if not v or v == _invalid_date else v
+
+            entry_dt = _clean_date(merged_data.get("EntryDateTime"))
+            last_dt = _clean_date(merged_data.get("LastModifiedTime"))
+
+            order_log.OrderGeneratedDateTime = entry_dt or _clean_date(merged_data.get("OrderGeneratedDateTime"))
+            order_log.ExchangeTransactTime = last_dt or entry_dt or _clean_date(merged_data.get("ExchangeTransactTime"))
+            order_log.LastUpdateDateTime = last_dt or _clean_date(merged_data.get("LastUpdateDateTime"))
+
+        return order_log
+
+    @staticmethod
+    def _map_order(data, order_log):
+        """Map API order response to OrderLog (no cached_data/action)."""
+        MotilalMapper.map_order(data, order_log, {}, None)
+
+    @staticmethod
+    def _map_holding(data):
+        """Map API holding item to Blitz-style dict."""
+        return data if isinstance(data, dict) else {}
+
+    @staticmethod
+    def _map_position(data):
+        """Map API position item to Blitz-style dict."""
+        return data if isinstance(data, dict) else {}
+
+    @staticmethod
+    def map_order(data, o, cashed_data, action):
+
+        o.ExchangeInstrumentID = int(data.get("symboltoken") or 0)
+        o.ExchangeSegment = MotilalMapper.map_exchange_segment(data.get("exchange"))
+        blitz_id = (cashed_data.get("BlitzAppOrderID") if isinstance(cashed_data, dict)
+                    else getattr(cashed_data, "BlitzAppOrderID", None))
+
+        o.BlitzAppOrderID = blitz_id
+
+        o.ExchangeOrderID = data.get("orderid")
+
+        o.ExecutionID = data.get("executionid")
+
+        o.OrderType = MotilalMapper.map_ordertype(data.get("ordertype"))
+        _side = data.get("buyorsell", "")
+        o.OrderSide = _side.capitalize()
+
+        o.ProductType = MotilalMapper.map_producttype(data.get("producttype"))
+
+        o.OrderStatus = MotilalMapper.map_status(data.get("orderstatus"), action)
+
+        order_qty = int(data.get("orderqty", 0))
+
+        o.OrderQuantity = order_qty
+        o.LeavesQuantity = int(data.get("totalqtyremaining", 0))
+        o.LastTradedQuantity = int(data.get("qtytradedtoday", 0))
+        o.CumulativeQuantity = int(data.get("qtytradedtoday", 0))
+
+        o.OrderAverageTradedPrice = (data.get("averageprice") or 0.)
+
+        o.TimeInForce = MotilalMapper.map_tif_orderlog(data.get("orderduration"))
+        o.OrderDisclosedQuantity = int(data.get("disclosedqty", 0))
+
+        o.OrderGeneratedDateTime = data.get("entrydatetime")
+        o.ExchangeTransactTime = data.get("entrydatetime")
+        o.LastUpdateDateTime = data.get("lastmodifiedtime")
+        o.LastExecutionTransactTime = data.get("lastmodifiedtime")
+
+        avg_price = data.get("averageprice")
+        o.LastTradedPrice = avg_price / 100 if avg_price else 0
+
+        o.OrderStopPrice = data.get("triggerprice") or 0.0
+        o.CancelRejectReason = data.get("error")
+        o.Account = data.get("clientid")
+        exchangeclientid = (cashed_data.get("ExchangeClientID") if isinstance(cashed_data, dict)
+                            else getattr(cashed_data, "ExchangeClientID", None))
+
+        o.ExchangeClientID = exchangeclientid
+
+        o.LastUpdateDateTime = data.get("lastmodifiedtime")
+
+    @staticmethod
+    def extract_order_id(result):
+        """
+        Robustly extracts Motilal order_id from various response formats.
+        """
+        if isinstance(result, dict):
+            if "Data" in result and isinstance(result["Data"], dict):
+                return result["Data"].get("uniqueorderid") or result["Data"].get("orderid")
+            else:
+                return result.get("uniqueorderid") or result.get("orderid")
+        else:
+            return result
+
+    @staticmethod
+    def resolve_order_id(data=None, id_mapping=None, *, direction="BLITZ_TO_MOTILAL", order_id=None):
+        """
+        Resolve order IDs in both directions.
+        """
+
+        if direction == "BLITZ_TO_MOTILAL":
+            if not isinstance(data, dict):
+                raise ValueError("data must be a dict containing 'BlitzAppOrderID'")
+
+            blitz_order_id = data.get("BlitzAppOrderID")
+            if not blitz_order_id:
+                raise ValueError("Missing mandatory field: 'BlitzAppOrderID'")
+
+            motilal_order_id = id_mapping.get(str(blitz_order_id))
+            if motilal_order_id:
+                return motilal_order_id
+
+            raise ValueError(f"Blitz order ID '{blitz_order_id}' not found in mapping")
+
+        elif direction == "MOTILAL_TO_BLITZ":
+            if not order_id:
+                raise ValueError("order_id (uniqueorderid) is required")
+
+            blitz_id = id_mapping.get(str(order_id))
+            if blitz_id:
+                return blitz_id
+
+            return None
+
+        else:
+            raise ValueError(f"Invalid direction: {direction}")
 
 
 
@@ -109,12 +524,6 @@ class MotilalAdapter:
                 access_token=self.access_token or self.jwt_token,
                 logger= self.logger
             )
-            self.portfolio_api = MotilalPortfolioAPI(
-                access_token=self.access_token or self.jwt_token,
-                api_key=self.api_key,
-                client_code=self.client_code
-            )
-            self.logger.info("Order and Portfolio APIs initialized. Ready to connect.")
         else:
             self.order_api = None
             self.portfolio_api = None
@@ -161,6 +570,7 @@ class MotilalAdapter:
     # WebSocket
     # -------------------------
     def _start_websocket(self):
+        from Motilal.motilal_websocket import MotilalWebSocket
         if not (self.access_token or self.jwt_token):
             self.logger.warning("Cannot start WebSocket: No access token available")
             return

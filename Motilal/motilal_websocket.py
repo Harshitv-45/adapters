@@ -5,16 +5,20 @@ import time
 import sys
 import os
 
-from common.broker_order_mapper import OrderLog
+# Ensure project root (adapters) is on path when run directly
+_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _root not in sys.path:
+    sys.path.insert(0, _root)
 
-sys.path.append(os.getcwd())
+#from Motilal.motilal_adapter import MotilalMapper
+from Motilal.motilal_adapter import MotilalMapper
+from common.broker_order_mapper import OrderLog
 
 try:
     import websocket
 except ImportError:
     websocket = None
 
-from Motilal.motilal_mapper import MotilalMapper
 from common.message_formatter import MessageFormatter
 from common.redis_client import RedisClient
 import config
@@ -49,8 +53,8 @@ class MotilalWebSocket:
         callback_func=None,
         order_id_mapper=None,
         order_callback=None,
-        blitz_order_cache = None,
-        blitz_order_action= None,
+        blitz_order_cache=None,
+        blitz_order_action=None,
         on_connected_callback=None,
         logger=None,
         adapter_published_ids=None,

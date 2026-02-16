@@ -1,7 +1,7 @@
 import redis
 import json
-
-import config
+import traceback
+from common import config
 
 class RedisClient:
     def __init__(self):
