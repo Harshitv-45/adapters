@@ -33,6 +33,9 @@ class ZerodhaWebSocket:
         # >>> ADDED: cache WS updates that arrive before REST mapping
         self.pending_ws_updates = {}
         
+        # >>> ADDED: buffer for COMPLETE status that arrives before OPEN
+        self.pending_complete_updates = {}
+        
         # >>> ADDED: lock for thread-safe access to pending_ws_updates
         self.pending_lock = threading.Lock()
 
@@ -60,6 +63,7 @@ class ZerodhaWebSocket:
                 # Clear state caches to prevent stale data on reconnect
                 self.order_state_cache.clear()
                 self.pending_ws_updates.clear()
+                self.pending_complete_updates.clear()
                 self.logger.info("[WEBSOCKET] State cleared")
                 
             except Exception as e:
@@ -271,6 +275,17 @@ class ZerodhaWebSocket:
             # COMPLETE (Filled)
             # =====================================================
             if status == "COMPLETE":
+                # Check if OPEN has been published first
+                if not prev or prev.get("status") not in ["OPEN", "UPDATE"]:
+                    # COMPLETE arrived before OPEN - buffer it
+                    self.logger.info(
+                        "BUFFERING_COMPLETE | order_id=%s (waiting for OPEN)",
+                        order_id
+                    )
+                    self.pending_complete_updates[order_id] = data
+                    return
+                
+                # OPEN was published, process COMPLETE normally
                 order_log = ZerodhaMapper.to_blitz_orderlog(
                     zerodha_data=data,
                     blitz_request=blitz_request
@@ -320,6 +335,16 @@ class ZerodhaWebSocket:
                 self.logger.info(
                     f"NEW order published | order_id={order_id}"
                 )
+                
+                # Check if there's a buffered COMPLETE update waiting
+                buffered_complete = self.pending_complete_updates.pop(order_id, None)
+                if buffered_complete:
+                    self.logger.info(
+                        f"PENDING_RESPONSE_COMPLETE | order_id={order_id}"
+                    )
+                    # Recursively process the buffered COMPLETE message
+                    self._on_order_update(ws, buffered_complete)
+                
                 return
 
         except Exception as e:

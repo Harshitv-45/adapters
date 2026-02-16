@@ -1,6 +1,24 @@
 from common.broker_order_mapper import OrderLog
 # from Motilal.motilal_adapter import MotilalAdapter
 
+# -----------------------------------------------------------------------------
+NSEFO_LOT_SIZES = {
+    "NIFTY": 65,
+    "BANKNIFTY": 30,
+    "FINNIFTY": 60,
+    "MIDCPNIFTY": 50,
+    
+}
+DEFAULT_NSEFO_LOT = 65
+
+
+def _nsefo_lot_size(symbol_name):
+    """Return lot size for NSEFO from symbol (e.g. NIFTY, BANKNIFTY). First word of name used."""
+    if not symbol_name:
+        return DEFAULT_NSEFO_LOT
+    sym = str(symbol_name).strip().upper().split()[0] if symbol_name else ""
+    return NSEFO_LOT_SIZES.get(sym, DEFAULT_NSEFO_LOT)
+
 
 class MotilalMapper:
 
@@ -38,7 +56,6 @@ class MotilalMapper:
         "DELIVERY":"CNC",
         # "NORMAL":"NRML",
         # "NRML":"NORMAL"
-
     }
 
     @staticmethod
@@ -162,7 +179,8 @@ class MotilalMapper:
         quantity = int(data.get("OrderQuantity") or 0)
         
         if exchange == "NSEFO":
-            lot_size = 65  
+            symbol_name = data.get("SymbolName") or data.get("ExchangeInstrumentName") or ""
+            lot_size = _nsefo_lot_size(symbol_name)
             quantity = quantity // lot_size
 
         product_type = MotilalMapper.map_producttype(data.get("ProductType"))
@@ -217,16 +235,14 @@ class MotilalMapper:
 
         exchange = cashed_data.get("ExchangeSegment")
         if exchange == "NSEFO":
-            lot_size = 65  
+            symbol_name = cashed_data.get("SymbolName") or cashed_data.get("ExchangeInstrumentName") or cashed_data.get("symbol") or ""
+            lot_size = _nsefo_lot_size(symbol_name)
             newquantityinlot = newquantityinlot // lot_size
 
         traded_quantity = int(data.get("CummulativeQuantity") or 0)
 
         lastmodifiedtime = (cashed_data.get("LastModifiedDateTime"))
-                    #         if isinstance(cashed_data, dict)
-                    # else getattr(cashed_data, "LastModifiedDateTime", None))
-
-
+        print("LastModifiedTime", lastmodifiedtime)          
         payload = {
             "uniqueorderid": uniqueorderid,
             "newordertype": newordertype,
@@ -323,11 +339,7 @@ class MotilalMapper:
         o.OrderStatus = MotilalMapper.map_status(data.get("orderstatus"), action)
 
         order_qty = int(data.get("orderqty", 0))
-        # if o.ExchangeSegment == "NSEFO":
-        #     lot_size = 65
-        #     order_qty = order_qty * lot_size
-        #     o.OrderQuantity = order_qty
-
+        
         o.OrderQuantity = order_qty
         o.LeavesQuantity = int(data.get("totalqtyremaining", 0))
         o.LastTradedQuantity = int(data.get("qtytradedtoday", 0))

@@ -343,15 +343,17 @@ class MotilalWebSocket:
                 order_log = OrderLog()
                 MotilalMapper.map_order(msg_data, order_log, cached_data, action)
 
-
+                if not order_log.OrderStatus:
+                     self.logger.info(
+                         f"[WEBSOCKET] Skipping unmapped status "
+                         f"{msg_data.get('orderstatus')} for order_id={order_id}"
+                        )
+                     return
+                        
+                     
                 if cached_data is None:
                     cached_data = {}
-                # elif not isinstance(cached_data, dict):
-                   
-                #     cached_data = {
-                #         k: getattr(cached_data, k)
-                #         for k in dir(cached_data)
-                # if not k.startswith("_") and not callable(getattr(cached_data, k))
+                
                 elif not isinstance(cached_data, dict):
                     cached_data = {
                         k: getattr(cached_data, k)
@@ -368,13 +370,7 @@ class MotilalWebSocket:
                 self.logger.info(f"[WEBSOCKET] Updated cache for blitz_id={blitz_id}")
 
 
-                if not order_log.OrderStatus:
-                    self.logger.info(
-                        f"[WEBSOCKET] Skipping unmapped status "
-                        f"{msg_data.get('orderstatus')} for order_id={order_id}"
-                    )
-                    return
-
+               
                 #order_log.BlitzAppOrderID = str(blitz_id)
 
                 order_data = order_log.to_dict()
