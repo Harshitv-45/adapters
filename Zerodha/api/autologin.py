@@ -23,11 +23,11 @@ def get_request_token(api_key, user_id, password, totp_secret):
     driver = None
 
     # Generate TOTP early (saves time later)
-    totp = pyotp.TOTP(totp_secret).now()
+    #totp = pyotp.TOTP(totp_secret).now()
 
     try:
         chrome_options = Options()
-        chrome_options.add_argument("--headless=new")
+        #chrome_options.add_argument("--headless=new")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         chrome_options.add_argument("--disable-gpu")
@@ -37,7 +37,7 @@ def get_request_token(api_key, user_id, password, totp_secret):
 
         service = Service(ChromeDriverManager().install())
         driver = webdriver.Chrome(service=service, options=chrome_options)
-        wait = WebDriverWait(driver, 6)
+        wait = WebDriverWait(driver, 10)
 
         driver.get(login_url)
 
@@ -64,6 +64,7 @@ def get_request_token(api_key, user_id, password, totp_secret):
         except TimeoutException:
             return None, "Invalid credentials"
 
+        totp = pyotp.TOTP(totp_secret).now()
         # Enter TOTP
         totp_input.send_keys(totp)
 
