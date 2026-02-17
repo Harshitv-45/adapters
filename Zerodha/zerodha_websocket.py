@@ -275,17 +275,17 @@ class ZerodhaWebSocket:
             # COMPLETE (Filled)
             # =====================================================
             if status == "COMPLETE":
-                # Check if OPEN has been published first
-                if not prev or prev.get("status") not in ["OPEN", "UPDATE"]:
-                    # COMPLETE arrived before OPEN - buffer it
+                # Check if a valid previous state exists (OPEN, UPDATE, or TRIGGER PENDING)
+                if not prev or prev.get("status") not in ["OPEN", "UPDATE", "TRIGGER PENDING"]:
+                    # COMPLETE arrived before any valid state - buffer it
                     self.logger.info(
-                        "BUFFERING_COMPLETE | order_id=%s (waiting for OPEN)",
+                        "BUFFERING_COMPLETE | order_id=%s (waiting for valid state)",
                         order_id
                     )
                     self.pending_complete_updates[order_id] = data
                     return
                 
-                # OPEN was published, process COMPLETE normally
+                # Valid previous state exists, process COMPLETE normally
                 order_log = ZerodhaMapper.to_blitz_orderlog(
                     zerodha_data=data,
                     blitz_request=blitz_request
@@ -305,6 +305,76 @@ class ZerodhaWebSocket:
                 self.order_state_cache[order_id] = {
                     "status": "COMPLETE"
                 }
+                
+                self.logger.info(
+                    f"COMPLETE published as Filled | order_id={order_id}"
+                )
+                return
+
+            # =====================================================
+            # TRIGGER PENDING → New Order (e.g., SL orders)
+            # =====================================================
+            if status == "TRIGGER PENDING":
+                order_log = ZerodhaMapper.to_blitz_orderlog(
+                    zerodha_data=data,
+                    blitz_request=blitz_request
+                )
+                # Override status to "New" as per the mapping
+                order_log.OrderStatus = "New"
+
+                self.logger.info(
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
+                    order_id,
+                    order_log.__dict__
+                )
+
+                response = self.formatter.order_update(order_log)
+                self.redis_client.publish(
+                    response.get("Data")
+                )
+
+                self.order_state_cache[order_id] = {
+                    "status": "TRIGGER PENDING",
+                    "price": price,
+                    "quantity": qty,
+                }
+
+                self.logger.info(
+                    f"TRIGGER PENDING published as New | order_id={order_id}"
+                )
+                return
+
+            # =====================================================
+            # TRIGGER PENDING → OPEN (Trigger activated)
+            # =====================================================
+            if status == "OPEN" and prev and prev.get("status") == "TRIGGER PENDING":
+                order_log = ZerodhaMapper.to_blitz_orderlog(
+                    zerodha_data=data,
+                    blitz_request=blitz_request
+                )
+                # Override status to "New" - order is now active after trigger
+                order_log.OrderStatus = "New"
+
+                self.logger.info(
+                    "[BLITZ-OUTBOUND] | order_id=%s payload=%s",
+                    order_id,
+                    order_log.__dict__
+                )
+
+                response = self.formatter.order_update(order_log)
+                self.redis_client.publish(
+                    response.get("Data")
+                )
+
+                self.order_state_cache[order_id] = {
+                    "status": "OPEN",
+                    "price": price,
+                    "quantity": qty,
+                }
+
+                self.logger.info(
+                    f"TRIGGER PENDING→OPEN published as New | order_id={order_id}"
+                )
                 return
 
             # =====================================================

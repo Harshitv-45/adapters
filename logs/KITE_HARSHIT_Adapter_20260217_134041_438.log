@@ -1,0 +1,17 @@
+[2026-02-17 13:40:41] INFO      [HARSHIT] Starting adapter
+[2026-02-17 13:40:41] INFO      [HARSHIT] Adapter INIT | Zerodha adapter starting
+[2026-02-17 13:40:41] INFO      [HARSHIT] LOGIN_START | Starting Zerodha login
+[2026-02-17 13:40:46] INFO      [HARSHIT] LOGIN_SUCCESS | Access token received: NqvLmz2v3T0tRDR7KKDYp9DdUhwyxyip
+[2026-02-17 13:40:46] INFO      [HARSHIT] [INSTRUMENTS] CSV already exists
+[2026-02-17 13:40:46] INFO      [HARSHIT] [INSTRUMENTS] Loaded 171565 rows
+[2026-02-17 13:40:46] INFO      [HARSHIT] INSTRUMENTS_READY | Instruments loaded
+[2026-02-17 13:40:46] INFO      [HARSHIT] Adapter READY | Zerodha adapter initialized
+[2026-02-17 13:40:46] INFO      [HARSHIT] WS_START | Starting Zerodha WebSocket
+[2026-02-17 13:40:46] INFO      [HARSHIT] Adapter connected successfully
+[2026-02-17 13:40:46] INFO      [HARSHIT] [WEBSOCKET] Connected to Zerodha
+[2026-02-17 13:40:58] INFO      [HARSHIT] [BLITZ-INBOUND] | action=PLACE_ORDER payload={'Account': '', 'ExchangeClientID': 'HARSHIT', 'ExchangeSegment': 'NSECM', 'ExchangeInstrumentID': 14366, 'SymbolName': 'IDEA', 'ExchangeInstrumentName': 'IDEA', 'ProductType': 'MIS', 'OrderType': 'STOPLIMIT', 'OrderSide': 'Buy', 'TimeInForce': 'GFD', 'DisclosedQuantity': 0, 'OrderQuantity': 1, 'LimitPrice': 11.53, 'StopPrice': 11.4, 'BlitzAppOrderID': 3156574877, 'AlgoID': '123456789', 'AlgoCategory': '123654789123', 'IsFictiveOrder': 'False'}
+[2026-02-17 13:40:58] INFO      [HARSHIT] CACHE_TEMP | blitz_id=3156574877
+[2026-02-17 13:40:58] INFO      [HARSHIT] [TPOMS-OUTBOUND] | payload={'tradingsymbol': 'IDEA', 'exchange': 'NSE', 'transaction_type': 'BUY', 'order_type': 'SL', 'quantity': 1, 'product': 'MIS', 'price': 11.53, 'trigger_price': 11.4, 'validity': 'DAY', 'disclosed_quantity': 0}
+[2026-02-17 13:40:58] INFO      [HARSHIT] [TPOMS-INBOUND] | payload={'status': 'success', 'data': {'order_id': '2023671499831304192'}}
+[2026-02-17 13:40:58] INFO      [HARSHIT] ORDER_PLACED | blitz=3156574877 zerodha=2023671499831304192
+[2026-02-17 13:40:58] INFO      [HARSHIT] [TPOMS-INBOUND][WebSocket] Incoming message: {'account_id': 'RGZ539', 'unfilled_quantity': 0, 'checksum': '', 'placed_by': 'RGZ539', 'order_id': '2023671499831304192', 'exchange_order_id': '1100000063267247', 'parent_order_id': None, 'status': 'TRIGGER PENDING', 'status_message': None, 'status_message_raw': None, 'order_timestamp': '2026-02-17 13:40:58', 'exchange_update_timestamp': '2026-02-17 13:40:58', 'exchange_timestamp': '2026-02-17 13:40:58', 'variety': 'regular', 'exchange': 'NSE', 'tradingsymbol': 'IDEA', 'instrument_token': 3677697, 'order_type': 'SL', 'transaction_type': 'BUY', 'validity': 'DAY', 'product': 'MIS', 'quantity': 1, 'disclosed_quantity': 0, 'price': 11.53, 'trigger_price': 11.4, 'average_price': 0, 'filled_quantity': 0, 'pending_quantity': 1, 'cancelled_quantity': 0, 'market_protection': 0, 'meta': {}, 'tag': None, 'guid': None}

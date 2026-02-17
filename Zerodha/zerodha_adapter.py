@@ -322,6 +322,7 @@ class ZerodhaMapper:
             "MODIFIED": "Replaced",
             "CANCELLED": "Cancelled",
             "REJECTED": "Rejected",
+            "TRIGGER PENDING": "New",
 
         }.get(str(status).upper(), str(status))
 
